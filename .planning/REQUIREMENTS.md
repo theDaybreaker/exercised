@@ -140,13 +140,64 @@ Updated during roadmap creation by the roadmapper.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (filled by roadmapper) | | Pending |
+| INPT-01 | Phase 1 | Pending |
+| INPT-02 | Phase 1 | Pending |
+| INPT-03 | Phase 1 | Pending |
+| SCHM-01 | Phase 1 | Pending |
+| SCHM-02 | Phase 1 | Pending |
+| SCHM-03 | Phase 1 | Pending |
+| SCHM-04 | Phase 1 | Pending |
+| SCHM-05 | Phase 1 | Pending |
+| PIPE-01 | Phase 1 | Pending |
+| PIPE-02 | Phase 1 | Pending |
+| PIPE-03 | Phase 1 | Pending |
+| PIPE-04 | Phase 1 | Pending |
+| PIPE-05 | Phase 1 | Pending |
+| PIPE-06 | Phase 1 | Pending |
+| OUTV-01 | Phase 1 | Pending |
+| OUTV-02 | Phase 1 | Pending |
+| OUTV-03 | Phase 1 | Pending |
+| OUTV-04 | Phase 1 | Pending |
+| OUTV-05 | Phase 1 | Pending |
+| OUTV-06 | Phase 1 | Pending |
+| OUTV-07 | Phase 1 | Pending |
+| SHRE-01 | Phase 1 | Pending |
+| SHRE-02 | Phase 1 | Pending |
+| SHRE-03 | Phase 1 | Pending |
+| DSGN-01 | Phase 1 | Pending |
+| DSGN-02 | Phase 1 | Pending |
+| DSGN-03 | Phase 1 | Pending |
+| DSGN-04 | Phase 1 | Pending |
+| DSGN-05 | Phase 1 | Pending |
+| DSGN-06 | Phase 1 | Pending |
+| ERRS-01 | Phase 1 | Pending |
+| ERRS-02 | Phase 1 | Pending |
+| ERRS-03 | Phase 1 | Pending |
+| OPS-01 | Phase 1 | Pending |
+| OPS-02 | Phase 1 | Pending |
+| OPS-03 | Phase 1 | Pending |
+| EXTR-01 | Phase 2 | Pending |
+| EXTR-02 | Phase 2 | Pending |
+| EXTR-03 | Phase 2 | Pending |
+| EXTR-04 | Phase 2 | Pending |
+| COST-01 | Phase 2 | Pending |
+| COST-02 | Phase 2 | Pending |
+| COST-03 | Phase 2 | Pending |
+| COST-04 | Phase 2 | Pending |
+| ERRS-04 | Phase 2 | Pending |
+| OPS-04 | Phase 2 | Pending |
+| OPS-05 | Phase 2 | Pending |
+| EXTR-05 | Phase 3 | Pending |
+| COST-05 | Phase 3 | Pending |
 
 **Coverage:**
-- v1 requirements: 41 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 41 ⚠️ *(roadmapper will resolve)*
+- v1 requirements: 49 total
+- Mapped to phases: 49
+- Unmapped: 0
+- Phase 1: 36 requirements
+- Phase 2: 11 requirements
+- Phase 3: 2 requirements
 
 ---
 *Requirements defined: 2026-05-16*
-*Last updated: 2026-05-16 after initial definition*
+*Last updated: 2026-05-16 after roadmap creation (traceability populated)*
