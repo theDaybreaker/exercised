@@ -11,24 +11,24 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 
 - [ ] **INPT-01**: User can paste a YouTube URL into a prominent landing-page input and submit via Enter or a primary "Extract Workout" CTA
 - [ ] **INPT-02**: Client-side YouTube URL validation rejects non-YouTube and malformed URLs before submit, with inline error
-- [ ] **INPT-03**: URL field supports paste from clipboard with auto-trim of whitespace and tracking parameters
+- [x] **INPT-03**: URL field supports paste from clipboard with auto-trim of whitespace and tracking parameters
 
 ### Schema & Contract
 
-- [ ] **SCHM-01**: A single Zod schema (`lib/schema/workout.ts`) defines the `Workout` shape and is the source of truth for fixtures, the LLM `generateObject` call, and frontend types
-- [ ] **SCHM-02**: Schema includes top-level fields: `workout_title`, `creator_username`, `target_muscles[]`, `estimated_duration_mins`, `routine[]`, plus `extraction_confidence` and `schema_version`
-- [ ] **SCHM-03**: Each exercise (standard and within superset) carries `startTimestamp`, `sourceQuote`, `equipment[]` fields — locked in v1 schema even when not all rendered yet
-- [ ] **SCHM-04**: Workout-level `difficulty` (beginner / intermediate / advanced) field is in the schema and rendered as a header chip
-- [ ] **SCHM-05**: Schema supports the `standard_set` and `superset` routine entry types from the brief, byte-for-byte compatible with the brief's example JSON
+- [x] **SCHM-01**: A single Zod schema (`lib/schema/workout.ts`) defines the `Workout` shape and is the source of truth for fixtures, the LLM `generateObject` call, and frontend types
+- [x] **SCHM-02**: Schema includes top-level fields: `workout_title`, `creator_username`, `target_muscles[]`, `estimated_duration_mins`, `routine[]`, plus `extraction_confidence` and `schema_version`
+- [x] **SCHM-03**: Each exercise (standard and within superset) carries `startTimestamp`, `sourceQuote`, `equipment[]` fields — locked in v1 schema even when not all rendered yet
+- [x] **SCHM-04**: Workout-level `difficulty` (beginner / intermediate / advanced) field is in the schema and rendered as a header chip
+- [x] **SCHM-05**: Schema supports the `standard_set` and `superset` routine entry types from the brief, byte-for-byte compatible with the brief's example JSON
 
 ### Loading & Pipeline UX
 
-- [ ] **PIPE-01**: `/api/extract` returns a streamed `text/event-stream` response (SSE) emitting stage events: `fetching → transcribing → analyzing → generating → result | error`
-- [ ] **PIPE-02**: Mock implementation of `/api/extract` returns fixture JSON via the same SSE stage events (real backend swap is a service-layer change, not a route change)
-- [ ] **PIPE-03**: Mock pipeline completes in ~3 seconds with stage transitions visible to the user
-- [ ] **PIPE-04**: Loading UI cycles stage labels driven by real SSE events (not faked `setTimeout`); each stage has a minimum 300ms dwell for polish
+- [x] **PIPE-01**: `/api/extract` returns a streamed `text/event-stream` response (SSE) emitting stage events: `fetching → transcribing → analyzing → generating → result | error`
+- [x] **PIPE-02**: Mock implementation of `/api/extract` returns fixture JSON via the same SSE stage events (real backend swap is a service-layer change, not a route change)
+- [x] **PIPE-03**: Mock pipeline completes in ~3 seconds with stage transitions visible to the user
+- [x] **PIPE-04**: Loading UI cycles stage labels driven by real SSE events (not faked `setTimeout`); each stage has a minimum 300ms dwell for polish
 - [ ] **PIPE-05**: Loading state shows skeleton workout cards in addition to the stage label
-- [ ] **PIPE-06**: An `EXTRACT_MODE` env var selects mock vs. real `ExtractionService` at runtime; frontend is unaware of the switch
+- [x] **PIPE-06**: An `EXTRACT_MODE` env var selects mock vs. real `ExtractionService` at runtime; frontend is unaware of the switch
 
 ### Workout Output View
 
@@ -48,10 +48,10 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 
 ### Visual Design (Premium Dark-Mode)
 
-- [ ] **DSGN-01**: App renders dark-mode by default with ambient gradient background (vibrant color orbs, not flat black)
-- [ ] **DSGN-02**: Cards use glassmorphism (semi-translucent background, backdrop-blur, thin 10%-white border) with 10–15% card opacity for legibility
-- [ ] **DSGN-03**: A single accent color (neon green or electric blue) is applied consistently across CTAs, focus rings, and active stage indicators
-- [ ] **DSGN-04**: Typography uses Inter, Outfit, or Geist loaded via `next/font` with zero CLS
+- [x] **DSGN-01**: App renders dark-mode by default with ambient gradient background (vibrant color orbs, not flat black)
+- [x] **DSGN-02**: Cards use glassmorphism (semi-translucent background, backdrop-blur, thin 10%-white border) with 10–15% card opacity for legibility
+- [x] **DSGN-03**: A single accent color (neon green or electric blue) is applied consistently across CTAs, focus rings, and active stage indicators
+- [x] **DSGN-04**: Typography uses Inter, Outfit, or Geist loaded via `next/font` with zero CLS
 - [ ] **DSGN-05**: Micro-animations on hover (cards lift / glow subtly) and on stage transitions during loading; respects `prefers-reduced-motion`
 - [ ] **DSGN-06**: WCAG 4.5:1 contrast ratio is met on all primary body text against the glassmorphic backgrounds
 
@@ -80,9 +80,9 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 
 ### Deployment & Operations
 
-- [ ] **OPS-01**: App deploys to Vercel from `main` with one-click rollback
+- [x] **OPS-01**: App deploys to Vercel from `main` with one-click rollback
 - [ ] **OPS-02**: Mock-mode demo is deployed and shareable from the end of Phase 1
-- [ ] **OPS-03**: `/api/extract` route uses Vercel Fluid Compute with `maxDuration = 300`
+- [x] **OPS-03**: `/api/extract` route uses Vercel Fluid Compute with `maxDuration = 300`
 - [ ] **OPS-04**: DMCA contact page and basic ToS/AI-disclaimer page exist before the real pipeline ships
 - [ ] **OPS-05**: Daily smoke test extracts a known-good YouTube video and alerts on failure (yt-dlp / caption-API drift)
 
@@ -142,18 +142,18 @@ Updated during roadmap creation by the roadmapper.
 |-------------|-------|--------|
 | INPT-01 | Phase 1 | Pending |
 | INPT-02 | Phase 1 | Pending |
-| INPT-03 | Phase 1 | Pending |
-| SCHM-01 | Phase 1 | Pending |
-| SCHM-02 | Phase 1 | Pending |
-| SCHM-03 | Phase 1 | Pending |
-| SCHM-04 | Phase 1 | Pending |
-| SCHM-05 | Phase 1 | Pending |
-| PIPE-01 | Phase 1 | Pending |
-| PIPE-02 | Phase 1 | Pending |
-| PIPE-03 | Phase 1 | Pending |
-| PIPE-04 | Phase 1 | Pending |
+| INPT-03 | Phase 1 | Complete |
+| SCHM-01 | Phase 1 | Complete |
+| SCHM-02 | Phase 1 | Complete |
+| SCHM-03 | Phase 1 | Complete |
+| SCHM-04 | Phase 1 | Complete |
+| SCHM-05 | Phase 1 | Complete |
+| PIPE-01 | Phase 1 | Complete |
+| PIPE-02 | Phase 1 | Complete |
+| PIPE-03 | Phase 1 | Complete |
+| PIPE-04 | Phase 1 | Complete |
 | PIPE-05 | Phase 1 | Pending |
-| PIPE-06 | Phase 1 | Pending |
+| PIPE-06 | Phase 1 | Complete |
 | OUTV-01 | Phase 1 | Pending |
 | OUTV-02 | Phase 1 | Pending |
 | OUTV-03 | Phase 1 | Pending |
@@ -164,18 +164,18 @@ Updated during roadmap creation by the roadmapper.
 | SHRE-01 | Phase 1 | Pending |
 | SHRE-02 | Phase 1 | Pending |
 | SHRE-03 | Phase 1 | Pending |
-| DSGN-01 | Phase 1 | Pending |
-| DSGN-02 | Phase 1 | Pending |
-| DSGN-03 | Phase 1 | Pending |
-| DSGN-04 | Phase 1 | Pending |
+| DSGN-01 | Phase 1 | Complete |
+| DSGN-02 | Phase 1 | Complete |
+| DSGN-03 | Phase 1 | Complete |
+| DSGN-04 | Phase 1 | Complete |
 | DSGN-05 | Phase 1 | Pending |
 | DSGN-06 | Phase 1 | Pending |
 | ERRS-01 | Phase 1 | Pending |
 | ERRS-02 | Phase 1 | Pending |
 | ERRS-03 | Phase 1 | Pending |
-| OPS-01 | Phase 1 | Pending |
+| OPS-01 | Phase 1 | Complete |
 | OPS-02 | Phase 1 | Pending |
-| OPS-03 | Phase 1 | Pending |
+| OPS-03 | Phase 1 | Complete |
 | EXTR-01 | Phase 2 | Pending |
 | EXTR-02 | Phase 2 | Pending |
 | EXTR-03 | Phase 2 | Pending |
