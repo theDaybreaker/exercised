@@ -1,0 +1,108 @@
+{
+  "schema_version": "1",
+  "workout_title": "Dumbbell-Only Leg Day · Hypertrophy Block",
+  "creator_username": "kynanfit",
+  "target_muscles": ["Quads", "Glutes", "Hamstrings", "Calves"],
+  "estimated_duration_mins": 45,
+  "difficulty": "intermediate",
+  "extraction_confidence": "high",
+  "routine": [
+    {
+      "type": "standard_set",
+      "exercise_name": "Dumbbell Goblet Squat",
+      "sets": 4,
+      "reps": "10-12",
+      "rest_seconds": 60,
+      "form_cues": [
+        "Hold the dumbbell vertically at chest height",
+        "Keep your chest tall and core braced",
+        "Drive knees out over toes",
+        "Sink hips below parallel for full depth"
+      ],
+      "startTimestamp": 45,
+      "sourceQuote": "We're starting with goblet squats — hold that dumbbell vertically right at your chest",
+      "equipment": ["dumbbells"]
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Romanian Deadlift (Single Dumbbell)",
+      "sets": 3,
+      "reps": "12",
+      "rest_seconds": 75,
+      "form_cues": [
+        "Hinge at the hips, not the lower back",
+        "Keep a slight bend in the knee",
+        "Feel the hamstring stretch before you drive back up",
+        "Control the lowering phase for 3 counts"
+      ],
+      "startTimestamp": 210,
+      "sourceQuote": "Hinge at the hips — you want to feel it in your hamstrings, not your lower back",
+      "equipment": ["dumbbells"]
+    },
+    {
+      "type": "superset",
+      "exercises": [
+        {
+          "exercise_name": "Dumbbell Walking Lunge",
+          "sets": 3,
+          "reps": "10 each leg",
+          "rest_seconds": 0,
+          "form_cues": [
+            "Step forward with control, not momentum",
+            "Front knee tracks directly over the toes",
+            "Back knee barely touches the floor"
+          ],
+          "startTimestamp": 390,
+          "sourceQuote": "Superset time — lunges into split squats",
+          "equipment": ["dumbbells"]
+        },
+        {
+          "exercise_name": "Bulgarian Split Squat",
+          "sets": 3,
+          "reps": "8-10 each leg",
+          "rest_seconds": 0,
+          "form_cues": [
+            "Rear foot elevated on bench or chair",
+            "Most of the weight on the front leg",
+            "Sit straight down rather than forward"
+          ],
+          "startTimestamp": 480,
+          "sourceQuote": "Now Bulgarian split squats — this will burn",
+          "equipment": ["dumbbells"]
+        }
+      ],
+      "rest_seconds": 90
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Dumbbell Sumo Squat",
+      "sets": 3,
+      "reps": "12-15",
+      "rest_seconds": 60,
+      "form_cues": [
+        "Wide stance, toes angled out at 45 degrees",
+        "Hold one dumbbell vertically between your legs",
+        "Squeeze the inner thighs and glutes at the top"
+      ],
+      "startTimestamp": 660,
+      "sourceQuote": "Wide stance sumo squat — targets the inner thighs and glutes",
+      "equipment": ["dumbbells"]
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Standing Calf Raise",
+      "sets": 4,
+      "reps": "15-20",
+      "rest_seconds": 45,
+      "form_cues": [
+        "Hold dumbbells at sides for added resistance",
+        "Rise up slowly onto the balls of your feet",
+        "Pause at the top for a full calf contraction",
+        "Lower under control, feel the stretch"
+      ],
+      "startTimestamp": 780,
+      "sourceQuote": "Finish with calf raises — don't skip calves, they're part of your leg day",
+      "equipment": ["dumbbells"]
+    }
+  ]
+}
