@@ -29,12 +29,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. From the rendered workout, the user can "Copy as Markdown", "Copy as Plain Text", and generate a "Share Workout" link that recreates the workout view on open with no backend round-trip
   4. Invalid URLs are rejected inline before any API call; extraction failures and no-workout-detected results land on distinct, honest error/empty states with retry, not fabricated content
   5. The Zod `Workout` schema in `lib/schema/workout.ts` is the single source of truth for fixtures and frontend types, includes forward-looking fields (`startTimestamp`, `sourceQuote`, `equipment[]`, `extraction_confidence`, `schema_version`), and is byte-compatible with the brief's example JSON
-**Plans:** 3/5 plans executed
+**Plans:** 4/5 plans executed
 Plans:
 - [x] 01-01-PLAN.md — Foundation: pnpm scaffold + shadcn init + tooling + Zod schema + service factory + mock + SSE route + base layout + ambient bg + footer + Vercel project setup
 - [x] 01-02-PLAN.md — Skeleton UI: UrlInput + ExtractFlow + LoadingStages + WorkoutView + ExerciseCard + SupersetCard + ActionBar + share encode/decode (SharePayloadSchema wrapper) + clipboard + local verify + first Vercel deploy (OPS-02 pending GitHub push)
 - [x] 01-03-PLAN.md — Fixture variety (5 fixtures, hash-mod-N selection) + URL-keyword error routing + ErrorState UI + inline URL validation polish
-- [ ] 01-04-PLAN.md — Share-encode D-17 strip chain loop body + D-18 schema-version error path polish + cross-fixture payload-size measurement
+- [x] 01-04-PLAN.md — Share-encode D-17 strip chain loop body + D-18 schema-version error path polish + cross-fixture payload-size measurement
 - [ ] 01-05-PLAN.md — Per-moment reduced-motion compliance + mobile sticky-bottom ActionBar + tooltip disambiguation + axe-core WCAG remediation loop + Phase 1 exit gate (cross-device human smoke + STATE finalization)
 **UI hint**: yes
 
@@ -69,6 +69,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Mock-Deployable Premium UI Demo | 3/5 | In Progress|  |
+| 1. Mock-Deployable Premium UI Demo | 4/5 | In Progress|  |
 | 2. Real Captions Pipeline + Cost Protections | 0/TBD | Not started | - |
 | 3. Audio Fallback for Uncaptioned Videos | 0/TBD | Not started | - |

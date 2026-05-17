@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Plan 01-02 code complete and locally verified; OPS-02 Vercel deploy pending GitHub remote push by user
-last_updated: "2026-05-17T18:22:14.459Z"
+status: verifying
+stopped_at: "Plan 01-04 complete: D-17 strip chain + strip notice + D-18 error path; 4 of 5 plans in Phase 1 complete"
+last_updated: "2026-05-17T18:33:31.165Z"
 last_activity: 2026-05-17
 progress:
   total_phases: 3
   completed_phases: 0
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 4
   percent: 0
 ---
 
@@ -27,10 +27,10 @@ See: .planning/PROJECT.md (updated 2026-05-16)
 
 Phase: 01 (mock-deployable-premium-ui-demo) — EXECUTING
 Plan: 5 of 5 (Plans 01-01 and 01-02 complete; 01-02 Vercel deploy pending OPS-02 human gate)
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-05-17
 
-Progress: [██████░░░░] 60%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Progress: [██████░░░░] 60%
 *Updated after each plan completion*
 | Phase 01 P01 | 10 | 3 tasks | 31 files |
 | Phase 01 P02 | 90 | 5 tasks (4 code + 1 human-verify) | 21 files created, 3 modified |
+| Phase 01 P04 | 7 | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,9 @@ Recent decisions affecting current work:
 - Plan 01-02: W6 SharePayloadSchema wrapper defined upfront in Plan 01-02 — wire format is { workout, stripped:[] } stable from first deploy; Plan 01-04 only adds strip-chain logic internally
 - Plan 01-02: D-16 share-link hydration on mount — ExtractFlow dispatches hydrate action (fromShareLink: true) → WorkoutView instant render, no cascade
 - Plan 01-02: Dumbbell-leg-day fixture compressed size: raw JSON 2706 bytes (over 2KB); lz-string encoded 2089 chars (within URL limits); Plan 01-04 strip-chain will handle the 2KB threshold
+- [Phase ?]: D-17 strip chain best-effort: if all 3 fields stripped and payload still > 2KB, function returns anyway (no hard gate per D-17 spec)
+- [Phase ?]: D-18 heading override keyed by message.includes substring — no new ErrorCode enum value needed for v1
+- [Phase ?]: noticeText() prefers D-17 verbatim form_cues copy when form_cues included; all-3 case uses Oxford-comma list
 
 ### Pending Todos
 
@@ -96,6 +100,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-17T18:22:14.450Z
-Stopped at: Plan 01-02 code complete and locally verified; OPS-02 Vercel deploy pending GitHub remote push by user
+Last session: 2026-05-17T18:33:31.158Z
+Stopped at: Plan 01-04 complete: D-17 strip chain + strip notice + D-18 error path; 4 of 5 plans in Phase 1 complete
 Resume file: None
