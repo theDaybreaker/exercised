@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Session resumed, proceeding to execute Phase 1
-last_updated: "2026-05-17T17:31:49.817Z"
+stopped_at: Plan 01-02 code complete and locally verified; OPS-02 Vercel deploy pending GitHub remote push by user
+last_updated: "2026-05-17T18:03:14.080Z"
 last_activity: 2026-05-17
 progress:
   total_phases: 3
   completed_phases: 0
   total_plans: 5
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -21,38 +21,39 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-16)
 
 **Core value:** Paste a YouTube workout video URL → see a clean, structured, readable workout in seconds. Premium aesthetic + extraction quality are the product.
-**Current focus:** Phase 01 — mock-deployable-premium-ui-demo
+**Current focus:** Phase 01 — mock-deployable-premium-ui-demo (Plan 01-03 next)
 
 ## Current Position
 
 Phase: 01 (mock-deployable-premium-ui-demo) — EXECUTING
-Plan: 2 of 5
+Plan: 4 of 5 (Plans 01-01 and 01-02 complete; 01-02 Vercel deploy pending OPS-02 human gate)
 Status: Ready to execute
 Last activity: 2026-05-17
 
-Progress: [██░░░░░░░░] 20%
+Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: —
+- Total plans completed: 2
+- Average duration: ~50 min/plan
+- Total execution time: ~100 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| — | — | — | — |
+| Phase 01 | 2 complete | ~100 min | ~50 min |
 
 **Recent Trend:**
 
-- Last 5 plans: —
-- Trend: —
+- Last 5 plans: Plan 01-01 (10 min), Plan 01-02 (~90 min)
+- Trend: On track
 
 *Updated after each plan completion*
 | Phase 01 P01 | 10 | 3 tasks | 31 files |
+| Phase 01 P02 | 90 | 5 tasks (4 code + 1 human-verify) | 21 files created, 3 modified |
 
 ## Accumulated Context
 
@@ -66,17 +67,21 @@ Recent decisions affecting current work:
 - Init: Captions-before-Whisper — Phase 2 ships captions-only real pipeline; Phase 3 adds audio fallback (10× cheaper, 10× faster, sidesteps yt-dlp/Vercel pitfall for the common path)
 - Init: All 8 cost defenses ship in the same PR as the first real OpenAI key (Phase 2) — non-negotiable
 - Init: Lock the design brief (dark glassmorphism, ambient gradient background, neon accents, Inter/Outfit or Geist) — premium aesthetic is core value, not polish
+- Plan 01-02: W6 SharePayloadSchema wrapper defined upfront in Plan 01-02 — wire format is { workout, stripped:[] } stable from first deploy; Plan 01-04 only adds strip-chain logic internally
+- Plan 01-02: D-16 share-link hydration on mount — ExtractFlow dispatches hydrate action (fromShareLink: true) → WorkoutView instant render, no cascade
+- Plan 01-02: Dumbbell-leg-day fixture compressed size: raw JSON 2706 bytes (over 2KB); lz-string encoded 2089 chars (within URL limits); Plan 01-04 strip-chain will handle the 2KB threshold
 
 ### Pending Todos
 
 [From .planning/todos/pending/ — ideas captured during sessions]
 
-None yet.
+- OPS-02 gate: Add GitHub remote + push to main → Vercel auto-deploy → confirm share-link cross-browser/cross-device
 
 ### Blockers/Concerns
 
 [Issues that affect future work]
 
+- **OPS-02 gate:** GitHub remote not configured locally. User must run `git remote add origin <url> && git push -u origin main` to trigger Vercel auto-deploy and complete Plan 01-02's production verification.
 - **Phase 2 prep:** yt-dlp host decision (Supadata vs. Railway/Fly sidecar) deferred to Phase 3 planning — informed by Phase 2 traffic and quality signals
 - **Phase 2 prep:** Eval set (5–10 hand-labeled fitness videos + 1 non-fitness control) must be built during Phase 2 planning; ship is gated on it passing
 - **Phase 1 prep:** Glassmorphism mobile-performance test on mid-range Android required during Phase 1 UI build (backdrop-filter cost)
@@ -87,10 +92,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| *(none)* | | | |
+| OPS | Vercel deploy + OPS-02 production share-link verification | Pending GitHub remote setup | Plan 01-02 |
 
 ## Session Continuity
 
-Last session: 2026-05-17T17:31:49.808Z
-Stopped at: Session resumed, proceeding to execute Phase 1
+Last session: 2026-05-17T18:03:14.068Z
+Stopped at: Plan 01-02 code complete and locally verified; OPS-02 Vercel deploy pending GitHub remote push by user
 Resume file: None

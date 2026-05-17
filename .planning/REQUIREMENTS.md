@@ -9,8 +9,8 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 
 ### Input
 
-- [ ] **INPT-01**: User can paste a YouTube URL into a prominent landing-page input and submit via Enter or a primary "Extract Workout" CTA
-- [ ] **INPT-02**: Client-side YouTube URL validation rejects non-YouTube and malformed URLs before submit, with inline error
+- [x] **INPT-01**: User can paste a YouTube URL into a prominent landing-page input and submit via Enter or a primary "Extract Workout" CTA
+- [x] **INPT-02**: Client-side YouTube URL validation rejects non-YouTube and malformed URLs before submit, with inline error
 - [x] **INPT-03**: URL field supports paste from clipboard with auto-trim of whitespace and tracking parameters
 
 ### Schema & Contract
@@ -27,24 +27,24 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 - [x] **PIPE-02**: Mock implementation of `/api/extract` returns fixture JSON via the same SSE stage events (real backend swap is a service-layer change, not a route change)
 - [x] **PIPE-03**: Mock pipeline completes in ~3 seconds with stage transitions visible to the user
 - [x] **PIPE-04**: Loading UI cycles stage labels driven by real SSE events (not faked `setTimeout`); each stage has a minimum 300ms dwell for polish
-- [ ] **PIPE-05**: Loading state shows skeleton workout cards in addition to the stage label
+- [x] **PIPE-05**: Loading state shows skeleton workout cards in addition to the stage label
 - [x] **PIPE-06**: An `EXTRACT_MODE` env var selects mock vs. real `ExtractionService` at runtime; frontend is unaware of the switch
 
 ### Workout Output View
 
-- [ ] **OUTV-01**: Output view renders workout title, creator username, estimated duration, and target muscles as styled pill tags in a header section
+- [x] **OUTV-01**: Output view renders workout title, creator username, estimated duration, and target muscles as styled pill tags in a header section
 - [ ] **OUTV-02**: Difficulty chip (beginner/intermediate/advanced) renders in the header when present in the schema
-- [ ] **OUTV-03**: Exercise list is scrollable and renders each `standard_set` as an exercise card with name, sets, reps, rest, and an expandable "Form Cues" toggle
-- [ ] **OUTV-04**: `superset` entries render as a visually-grouped bracketed card containing the inner exercises and a single shared rest indicator
-- [ ] **OUTV-05**: A "Watch on YouTube" link / button is visible on the output, linking to the source video and crediting the creator
-- [ ] **OUTV-06**: A footer-level AI-disclaimer line is present on the output ("AI-extracted; verify form and reps in the source video")
+- [x] **OUTV-03**: Exercise list is scrollable and renders each `standard_set` as an exercise card with name, sets, reps, rest, and an expandable "Form Cues" toggle
+- [x] **OUTV-04**: `superset` entries render as a visually-grouped bracketed card containing the inner exercises and a single shared rest indicator
+- [x] **OUTV-05**: A "Watch on YouTube" link / button is visible on the output, linking to the source video and crediting the creator
+- [x] **OUTV-06**: A footer-level AI-disclaimer line is present on the output ("AI-extracted; verify form and reps in the source video")
 - [ ] **OUTV-07**: Output view is fully mobile-responsive — touch-target sizes meet 44px minimum and cards reflow on phone widths
 
 ### Save & Share (No-Auth)
 
-- [ ] **SHRE-01**: "Copy as Markdown" copies the workout to clipboard formatted as readable markdown
-- [ ] **SHRE-02**: "Copy as Plain Text" copies a clean plain-text variant suitable for Notes / WhatsApp
-- [ ] **SHRE-03**: "Share Workout" button generates a URL-encoded share link (compressed with `lz-string`) that recreates the workout view when opened — no backend round-trip, schema-version-aware
+- [x] **SHRE-01**: "Copy as Markdown" copies the workout to clipboard formatted as readable markdown
+- [x] **SHRE-02**: "Copy as Plain Text" copies a clean plain-text variant suitable for Notes / WhatsApp
+- [x] **SHRE-03**: "Share Workout" button generates a URL-encoded share link (compressed with `lz-string`) that recreates the workout view when opened — no backend round-trip, schema-version-aware
 
 ### Visual Design (Premium Dark-Mode)
 
@@ -81,7 +81,7 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 ### Deployment & Operations
 
 - [x] **OPS-01**: App deploys to Vercel from `main` with one-click rollback
-- [ ] **OPS-02**: Mock-mode demo is deployed and shareable from the end of Phase 1
+- [x] **OPS-02**: Mock-mode demo is deployed and shareable from the end of Phase 1
 - [x] **OPS-03**: `/api/extract` route uses Vercel Fluid Compute with `maxDuration = 300`
 - [ ] **OPS-04**: DMCA contact page and basic ToS/AI-disclaimer page exist before the real pipeline ships
 - [ ] **OPS-05**: Daily smoke test extracts a known-good YouTube video and alerts on failure (yt-dlp / caption-API drift)
@@ -140,8 +140,8 @@ Updated during roadmap creation by the roadmapper.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INPT-01 | Phase 1 | Pending |
-| INPT-02 | Phase 1 | Pending |
+| INPT-01 | Phase 1 | Complete |
+| INPT-02 | Phase 1 | Complete |
 | INPT-03 | Phase 1 | Complete |
 | SCHM-01 | Phase 1 | Complete |
 | SCHM-02 | Phase 1 | Complete |
@@ -152,18 +152,18 @@ Updated during roadmap creation by the roadmapper.
 | PIPE-02 | Phase 1 | Complete |
 | PIPE-03 | Phase 1 | Complete |
 | PIPE-04 | Phase 1 | Complete |
-| PIPE-05 | Phase 1 | Pending |
+| PIPE-05 | Phase 1 | Complete |
 | PIPE-06 | Phase 1 | Complete |
-| OUTV-01 | Phase 1 | Pending |
+| OUTV-01 | Phase 1 | Complete |
 | OUTV-02 | Phase 1 | Pending |
-| OUTV-03 | Phase 1 | Pending |
-| OUTV-04 | Phase 1 | Pending |
-| OUTV-05 | Phase 1 | Pending |
-| OUTV-06 | Phase 1 | Pending |
+| OUTV-03 | Phase 1 | Complete |
+| OUTV-04 | Phase 1 | Complete |
+| OUTV-05 | Phase 1 | Complete |
+| OUTV-06 | Phase 1 | Complete |
 | OUTV-07 | Phase 1 | Pending |
-| SHRE-01 | Phase 1 | Pending |
-| SHRE-02 | Phase 1 | Pending |
-| SHRE-03 | Phase 1 | Pending |
+| SHRE-01 | Phase 1 | Complete |
+| SHRE-02 | Phase 1 | Complete |
+| SHRE-03 | Phase 1 | Complete |
 | DSGN-01 | Phase 1 | Complete |
 | DSGN-02 | Phase 1 | Complete |
 | DSGN-03 | Phase 1 | Complete |
@@ -174,7 +174,7 @@ Updated during roadmap creation by the roadmapper.
 | ERRS-02 | Phase 1 | Pending |
 | ERRS-03 | Phase 1 | Pending |
 | OPS-01 | Phase 1 | Complete |
-| OPS-02 | Phase 1 | Pending |
+| OPS-02 | Phase 1 | Complete |
 | OPS-03 | Phase 1 | Complete |
 | EXTR-01 | Phase 2 | Pending |
 | EXTR-02 | Phase 2 | Pending |
