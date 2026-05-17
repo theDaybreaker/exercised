@@ -29,7 +29,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. From the rendered workout, the user can "Copy as Markdown", "Copy as Plain Text", and generate a "Share Workout" link that recreates the workout view on open with no backend round-trip
   4. Invalid URLs are rejected inline before any API call; extraction failures and no-workout-detected results land on distinct, honest error/empty states with retry, not fabricated content
   5. The Zod `Workout` schema in `lib/schema/workout.ts` is the single source of truth for fixtures and frontend types, includes forward-looking fields (`startTimestamp`, `sourceQuote`, `equipment[]`, `extraction_confidence`, `schema_version`), and is byte-compatible with the brief's example JSON
-**Plans**: TBD
+**Plans:** 4 plans
+Plans:
+- [ ] 01-01-PLAN.md — Walking Skeleton: scaffold + Zod schema + mock SSE + 1 fixture render + share encode/decode (no strip chain) + Vercel deploy
+- [ ] 01-02-PLAN.md — Fixture variety (5 fixtures, hash-mod-N selection) + URL-keyword error routing + ErrorState UI + inline URL validation
+- [ ] 01-03-PLAN.md — Share-encode D-17 strip chain + D-18 schema-version error path + cross-fixture payload-size measurement
+- [ ] 01-04-PLAN.md — Per-moment reduced-motion compliance + mobile sticky-bottom ActionBar + tooltip disambiguation + axe-core WCAG audit + Phase 1 exit gate
 **UI hint**: yes
 
 ### Phase 2: Real Captions Pipeline + Cost Protections
@@ -63,6 +68,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Mock-Deployable Premium UI Demo | 0/TBD | Not started | - |
+| 1. Mock-Deployable Premium UI Demo | 0/4 | Not started | - |
 | 2. Real Captions Pipeline + Cost Protections | 0/TBD | Not started | - |
 | 3. Audio Fallback for Uncaptioned Videos | 0/TBD | Not started | - |
