@@ -772,27 +772,31 @@ export async function sendSmokeAlert(details: string): Promise<void> {
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **`generateObject` vs `generateText + Output.object()` in AI SDK 6**
    - What we know: AI SDK v6 docs focus on `generateText({ output: Output.object() })`. `generateObject` still exists.
    - What's unclear: Whether `generateObject` is deprecated, removed, or still first-class in v6.
    - Recommendation: Use `generateText + Output.object()` as it is the current documented pattern. Planner may want to verify against `ai@6.0.184` package exports.
+   - **RESOLVED:** Use `generateText({ output: Output.object(WorkoutSchema) })` per AI SDK 6 docs and RESEARCH Pattern 5. Plans 02-03 and 02-04 implement this. `generateObject` is not used anywhere in Phase 2.
 
 2. **OpenAI Org Budget: Alert vs Hard Stop**
    - What we know: A community post noted "Monthly Budget Limit silently removed" in late 2025, changed to an alert rather than a hard cutoff. The COST-04 requirement says "configured before first real key deployed" — configure as alert.
    - What's unclear: Whether OpenAI has restored hard-stop capability by May 2026.
    - Recommendation: Configure an email alert at $10/month at the OpenAI org level; rely on application-level Redis cap (D-20c) as the hard stop. Document this in COST-04 verification.
+   - **RESOLVED:** Assume alert-only on the OpenAI dashboard (not a hard stop). The application-level Redis spend cap (D-20c) is the hard enforcement mechanism. Documented in Plan 02-07 Task 2 owner actions.
 
 3. **Auto-Generated Caption Quality for Fitness Extraction**
    - What we know: YouTube auto-captions are ~60-70% accurate. Exercise names are generally recognizable even with errors.
    - What's unclear: Whether the sourceQuote validation guard will be too strict for auto-generated captions (Pitfall 5).
    - Recommendation: During eval set construction, include at least 2 videos that have only auto-generated captions. Tune the `normalize()` function if needed.
+   - **RESOLVED:** Accept auto-captions; eval set (Plan 02-06) includes at least 1 video known to have only auto-generated captions to surface quality issues. Tune `normalize()` if droppedCount is high on that video.
 
 4. **BUDGET_EXHAUSTED as SSE Event vs Error HTTP Response**
    - What we know: D-20e says "new `BUDGET_EXHAUSTED` error code in the SSE event schema" — it is emitted as an SSE error event.
    - What's unclear: Whether `ExtractFlow.tsx` should receive it as an SSE error event (before the SSE stream opens normally) or as an HTTP 429 before the SSE stream starts.
    - Recommendation: Emit as SSE error event inside the stream — consistent with how `RATE_LIMITED` is emitted in the mock. The SSE stream opens, immediately sends the error event, then closes. Frontend handles it identically to RATE_LIMITED.
+   - **RESOLVED:** BUDGET_EXHAUSTED is an HTTP 503 response (pre-flight, before the SSE stream opens), per CONTEXT D-20d/e. RATE_LIMITED is HTTP 429. Neither is an SSE event. The SSE error.code enum is NETWORK | NO_WORKOUT | UNKNOWN only. ExtractFlow.tsx checks response.status before entering the SSE consumer (Plan 02-04 Task 3).
 
 ---
 
