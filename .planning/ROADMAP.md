@@ -39,7 +39,7 @@ Plans:
 **UI hint**: yes
 
 ### Phase 2: Real Captions Pipeline + Cost Protections
-**Goal**: Replace the mock with a real captions-first extraction pipeline (GPT-4o `generateObject` against the locked schema) gated by a hand-labeled eval set, shipped in the same release as the full cost-protection stack — so the first real OpenAI key is deployed only when rate limiting, cache, daily spend cap, OpenAI/Vercel budget caps, DMCA page, and daily smoke test are all live
+**Goal**: Replace the mock with a real captions-first extraction pipeline (GPT-4o `generateText + Output.object()` against the locked schema) gated by a hand-labeled eval set, shipped in the same release as the full cost-protection stack — so the first real OpenAI key is deployed only when rate limiting, cache, daily spend cap, OpenAI/Vercel budget caps, DMCA page, and daily smoke test are all live
 **Mode:** mvp
 **Depends on**: Phase 1
 **Requirements**: EXTR-01, EXTR-02, EXTR-03, EXTR-04, COST-01, COST-02, COST-03, COST-04, ERRS-04, OPS-04, OPS-05
@@ -48,8 +48,16 @@ Plans:
   2. A `tests/eval/` set of 5–10 hand-labeled fitness videos plus 1 non-fitness control passes before the real-pipeline release ships; the control video extracts as "no workout detected" and blocks release if it produces a fabricated workout
   3. Repeat extractions of the same `videoId` return from the Upstash cache in under 1 second with no AI cost; abusive request patterns from a single IP are blocked by the `@upstash/ratelimit` sliding window with a friendly rate-limit UX (not a 429 dump); the global daily spend cap shows a "We're popular today — try again tomorrow" state when crossed
   4. Every extracted exercise carries a `sourceQuote` validated to appear in the transcript before being returned; low-confidence extractions surface a banner on the output ("results may be incomplete"); OpenAI dashboard budget cap and Vercel Spend Management cap are configured and visible in their respective dashboards
-  5. A public DMCA / ToS / AI-disclaimer page is reachable from the footer, and a daily smoke test extracts a known-good YouTube video and alerts on failure (caption-API drift, yt-dlp drift, or LLM regression)
-**Plans**: TBD
+  5. A public DMCA / ToS / AI-disclaimer page is reachable from the footer, and a daily smoke test extracts a known-good YouTube video and alerts on failure (caption-API drift, LLM regression)
+**Plans:** 7 plans
+Plans:
+- [ ] 02-01-PLAN.md — Schema migration: add video_url: z.string().url().nullable() to WorkoutSchema + audit .optional() fields + backfill 5 fixtures + update ActionBar Watch-on-YouTube link (D-25)
+- [ ] 02-02-PLAN.md — Install 8 packages + Redis infrastructure: lib/redis/client.ts singleton + lib/ratelimit/index.ts (two-limiter pattern) + lib/spend/cap.ts (INCR/EXPIRE) + lib/cache/videoCache.ts (stampede lock)
+- [ ] 02-03-PLAN.md — Extraction pipeline building blocks: lib/youtube/captions.ts (primary+fallback) + lib/ai/extract.ts (generateText+Output.object) + lib/guards/sourceQuote.ts (hallucination guard)
+- [ ] 02-04-PLAN.md — Wire route.ts: all cost defenses in sequence + RealExtractionService stub replacement + BUDGET_EXHAUSTED SSE error code
+- [ ] 02-05-PLAN.md — UI affordances + ops: ConfidenceBanner + BUDGET_EXHAUSTED ErrorState + cached badge + /about page + smoke-test cron handler + vercel.json
+- [ ] 02-06-PLAN.md — Eval set: 9 fixture files + tests/eval/run.ts (pnpm eval) + human checkpoint for URL selection + binary pass gate
+- [ ] 02-07-PLAN.md — Ship gate: 8-defense pre-flight audit + owner actions (OpenAI/Vercel dashboard caps) + EXTRACT_MODE=real flip + production smoke verify + STATE.md update
 
 ### Phase 3: Audio Fallback for Uncaptioned Videos
 **Goal**: Close coverage on YouTube videos without captions by adding an audio-transcription fallback path — fetching audio off-Vercel (Supadata or Railway/Fly sidecar), transcribing with `gpt-4o-mini-transcribe`, then feeding the same LLM extraction step — protected by a pre-Whisper duration cap so the audio path can never blow up a single request
@@ -70,5 +78,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Mock-Deployable Premium UI Demo | 5/5 | Complete | 2026-05-17 |
-| 2. Real Captions Pipeline + Cost Protections | 0/TBD | Not started | - |
+| 2. Real Captions Pipeline + Cost Protections | 0/7 | Not started | - |
 | 3. Audio Fallback for Uncaptioned Videos | 0/TBD | Not started | - |
