@@ -88,7 +88,7 @@ export function WorkoutView({ workout, shouldAnimateIn, shareLinkOmittedFields }
 
   return (
     <motion.article
-      className="mx-auto w-full max-w-3xl space-y-6 px-6 pb-16 pt-12"
+      className="mx-auto w-full max-w-3xl space-y-6 px-6 pb-24 pt-12 md:pb-16"
       variants={containerVariants}
       initial={initial}
       animate={animate}
