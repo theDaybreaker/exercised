@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/*
+ * Reduced Motion Audit (UI-SPEC §6.5) — Plan 01-05
+ * =====================================================
+ * 1. Orb drift         — CSS @media (prefers-reduced-motion: reduce) block below (.orb-1/2/3)
+ * 2. Pulse-dot scale   — CSS @media (prefers-reduced-motion: reduce) block below (.pulse-dot) + className="pulse-dot" in LoadingStages.tsx
+ * 3. Skeleton shimmer  — CSS @media (prefers-reduced-motion: reduce) block below (.skeleton-shimmer) + className="skeleton-shimmer" in SkeletonCard.tsx
+ * 4. Result cascade    — Motion useReducedMotion() in WorkoutView.tsx (shouldAnimate = shouldAnimateIn && !prefersReducedMotion)
+ * 5. Card hover-lift   — CSS @media (prefers-reduced-motion: reduce) + (hover: hover) and (pointer: fine) guard in CSS (.glass-card:hover, .card-hover-lift)
+ * 6. Form-cue expansion— Motion useReducedMotion() in ExerciseCard.tsx + SupersetCard.tsx (transition: { duration: 0 } when reduced)
+ * 7. Toast entrance    — sonner default handles prefers-reduced-motion; CSS @media override below ([data-sonner-toast]) as belt-and-suspenders
+ */
+
 /* shadcn CSS variables — dark-default palette for Exercised */
 :root {
   --background: 8 9 12;           /* #08090C */
@@ -181,29 +193,66 @@
   animation: pulse-dot 1.4s ease-in-out infinite;
 }
 
-/* Card hover lift */
+/* Card hover lift — transition class (applied alongside .glass-card) */
 .card-hover-lift {
-  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Reduced-motion master block (UI-SPEC §6.5) */
+/* Card hover-lift effect — only on desktop pointer devices (UI-SPEC §5.3) */
+@media (hover: hover) and (pointer: fine) {
+  .glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 6px 20px rgba(124, 255, 107, 0.18);
+    border-color: rgba(124, 255, 107, 0.25);
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* Reduced-motion master block (UI-SPEC §6.5) — Plan 01-05: all 7 moments gated */
 @media (prefers-reduced-motion: reduce) {
+  /* Moment 1 — Orb drift */
   .orb-1,
   .orb-2,
   .orb-3 {
     animation: none !important;
   }
 
-  .skeleton-shimmer {
-    animation: none !important;
-  }
-
+  /* Moment 2 — Pulse-dot scale */
   .pulse-dot {
     animation: none !important;
   }
 
-  .card-hover-lift {
+  /* Moment 3 — Skeleton shimmer */
+  .skeleton-shimmer {
+    animation: none !important;
+  }
+
+  /* Moment 5 — Card hover-lift (CSS transition disabled) */
+  .card-hover-lift,
+  .glass-card:hover {
     transition: none !important;
     transform: none !important;
+  }
+
+  /* Moment 7 — Toast entrance (sonner belt-and-suspenders override) */
+  [data-sonner-toast] {
+    animation: none !important;
+    transition: opacity 100ms ease !important;
+  }
+}
+
+/* Plan 01-05 — mobile glass perf fallback heuristic (UI-SPEC §5.2; full validation deferred per CONTEXT.md <deferred>) */
+@media (prefers-reduced-motion: reduce) and (max-width: 480px) {
+  .glass-card {
+    background-color: rgba(20, 22, 28, 0.85);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 }
