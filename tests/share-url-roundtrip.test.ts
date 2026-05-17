@@ -9,6 +9,7 @@
  * 5. SharePayloadSchema.parse with explicit stripped: []
  * 6. SharePayloadSchema.parse without stripped (defaults to [])
  * 7. Non-empty stripped array decodes correctly (W6 Plan 01-04 forward-compat)
+ * 8. hypertrophy-12 strip round-trip: strippedOnEncode === strippedOnDecode (D-17)
  */
 import { describe, it, expect } from "vitest";
 import LZString from "lz-string";
@@ -18,6 +19,7 @@ import { SharePayloadSchema } from "@/lib/schema/workout";
 
 // Import the fixture — same shape mock.ts uses
 import dumbbellLegDay from "@/tests/fixtures/dumbbell-leg-day.json";
+import hypertrophy12 from "@/tests/fixtures/hypertrophy-12-exercises.json";
 import { WorkoutSchema } from "@/lib/schema/workout";
 
 const fixture = WorkoutSchema.parse(dumbbellLegDay);
@@ -82,5 +84,29 @@ describe("share URL round-trip (W6, D-16, D-18, T-02-01)", () => {
     const decoded = decodeShareUrl(encoded);
     expect(decoded.stripped).toEqual(["sourceQuote"]);
     expect(decoded.workout).toEqual(fixture);
+  });
+
+  it("8. hypertrophy-12 strip round-trip: strippedOnEncode === strippedOnDecode (D-17)", () => {
+    // Plan 01-04: verify the hypertrophy fixture's strip info survives the encode/decode round-trip
+    const hypertrophyFixture = WorkoutSchema.parse(hypertrophy12);
+    const { encoded, stripped: strippedOnEncode } = encodeShareUrl(hypertrophyFixture);
+    expect(encoded.length).toBeLessThanOrEqual(2048);
+    expect(strippedOnEncode.length).toBeGreaterThan(0); // at least sourceQuote stripped
+
+    const { workout: decoded, stripped: strippedOnDecode } = decodeShareUrl(encoded);
+    expect(strippedOnDecode).toEqual(strippedOnEncode);
+
+    // Stripped exercises should have null sourceQuote if sourceQuote was stripped
+    if (strippedOnEncode.includes("sourceQuote")) {
+      for (const item of decoded.routine) {
+        if (item.type === "standard_set") {
+          expect(item.sourceQuote).toBeNull();
+        } else {
+          for (const ex of item.exercises) {
+            expect(ex.sourceQuote).toBeNull();
+          }
+        }
+      }
+    }
   });
 });
