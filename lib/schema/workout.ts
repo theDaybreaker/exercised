@@ -58,8 +58,18 @@ export const ExtractEventSchema = z.discriminatedUnion("type", [
   }),
 ]);
 
+// ─── Share-link payload (W6 — wire format stable from first deploy) ───
+// StripField: which optional fields were stripped to fit the 2KB URL cap (D-17)
+export const StripFieldSchema = z.enum(["sourceQuote", "form_cues", "equipment"]);
+export const SharePayloadSchema = z.object({
+  workout: WorkoutSchema,
+  stripped: z.array(StripFieldSchema).default([]),
+});
+
 // ─── Inferred TypeScript types ───
 export type Workout = z.infer<typeof WorkoutSchema>;
 export type RoutineItem = z.infer<typeof RoutineItemSchema>;
 export type ExtractEvent = z.infer<typeof ExtractEventSchema>;
 export type ExtractRequest = z.infer<typeof ExtractRequestSchema>;
+export type StripField = z.infer<typeof StripFieldSchema>;
+export type SharePayload = z.infer<typeof SharePayloadSchema>;

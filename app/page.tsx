@@ -1,19 +1,19 @@
 import { AmbientBackground } from "@/components/layout/AmbientBackground";
 import { Footer } from "@/components/layout/Footer";
+import { ExtractFlow } from "@/components/extract/ExtractFlow";
 
 /**
- * HomePage — RSC shell for Phase 1.
- *
- * Plan 01-01 ships the ambient gradient background + footer chrome only.
- * Plan 01-02 inserts <ExtractFlow /> between the hero placeholder and footer.
+ * HomePage — RSC shell.
  *
  * Layout per UI-SPEC §9.2 (single-screen centered composition, D-04).
+ * <ExtractFlow /> is the single Client island owning the FSM + SSE loop.
+ * <AmbientBackground /> and <Footer /> are RSCs (zero client JS).
  */
 export default function HomePage() {
   return (
     <>
       <AmbientBackground />
-      <main className="relative flex min-h-screen flex-col items-center justify-center px-6">
+      <main className="relative flex min-h-screen flex-col items-center justify-center px-6 py-16">
         <div className="flex w-full max-w-2xl flex-col items-center gap-8 text-center">
           {/* Hero headline — Display size per UI-SPEC §3 */}
           <h1
@@ -36,16 +36,9 @@ export default function HomePage() {
             and form cues in seconds.
           </p>
 
-          {/* Placeholder — Plan 01-02 replaces this with <ExtractFlow /> */}
-          <div
-            className="glass-card flex h-14 w-full items-center justify-center rounded-2xl px-6"
-          >
-            <span
-              className="text-sm font-medium"
-              style={{ color: "var(--color-text-muted)" }}
-            >
-              Interactive UI coming in Plan 01-02
-            </span>
+          {/* ExtractFlow — single Client island, owns all interactivity */}
+          <div className="w-full">
+            <ExtractFlow />
           </div>
         </div>
       </main>
