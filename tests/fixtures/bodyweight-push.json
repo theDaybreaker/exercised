@@ -1,0 +1,101 @@
+{
+  "schema_version": "1",
+  "workout_title": "30-Min Bodyweight Push",
+  "creator_username": "coachvee",
+  "target_muscles": ["Chest", "Shoulders", "Triceps", "Core"],
+  "estimated_duration_mins": 30,
+  "difficulty": "beginner",
+  "extraction_confidence": "high",
+  "routine": [
+    {
+      "type": "standard_set",
+      "exercise_name": "Push-Up",
+      "sets": 3,
+      "reps": "10-15",
+      "rest_seconds": 60,
+      "form_cues": [
+        "Hands slightly wider than shoulder-width",
+        "Keep your core tight and hips level",
+        "Lower your chest to just above the floor"
+      ],
+      "startTimestamp": 30,
+      "sourceQuote": "We're starting with push-ups — the king of upper body bodyweight moves",
+      "equipment": []
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Pike Push-Up",
+      "sets": 3,
+      "reps": "8-10",
+      "rest_seconds": 60,
+      "form_cues": [
+        "Hips high in an inverted V shape",
+        "Lower your head toward the floor between your hands",
+        "Press back up through your shoulders"
+      ],
+      "startTimestamp": 210,
+      "sourceQuote": "Pike push-ups target your shoulders — hips stay high the whole time",
+      "equipment": []
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Tricep Dip (Chair or Floor)",
+      "sets": 3,
+      "reps": "10-12",
+      "rest_seconds": 60,
+      "form_cues": [
+        "Fingers facing forward, elbows track straight back",
+        "Lower until elbows are at 90 degrees",
+        "Press up without locking out"
+      ],
+      "startTimestamp": 390,
+      "sourceQuote": "Dips next — find a sturdy chair or use the floor version if you need to",
+      "equipment": ["chair"]
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Diamond Push-Up",
+      "sets": 3,
+      "reps": "8-10",
+      "rest_seconds": 75,
+      "form_cues": [
+        "Thumbs and index fingers form a diamond shape",
+        "Elbows stay close to your sides",
+        "Slower tempo — 3 counts down, 1 up"
+      ],
+      "startTimestamp": 540,
+      "sourceQuote": "Diamond push-ups are tough — don't worry if you need to drop to your knees",
+      "equipment": []
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Wide Push-Up",
+      "sets": 3,
+      "reps": "10-12",
+      "rest_seconds": 60,
+      "form_cues": [
+        "Hands about 1.5x shoulder width apart",
+        "Emphasizes the chest — feel the stretch at the bottom",
+        "Squeeze your chest at the top"
+      ],
+      "startTimestamp": 690,
+      "sourceQuote": "Wide grip now — really stretch that chest at the bottom of each rep",
+      "equipment": []
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Plank Hold",
+      "sets": 3,
+      "reps": "30-45 seconds",
+      "rest_seconds": 45,
+      "form_cues": [
+        "Straight line from heels to head",
+        "Don't let your hips sag or pike up",
+        "Breathe steadily throughout"
+      ],
+      "startTimestamp": 840,
+      "sourceQuote": "Finish with planks — hold tight, breathe, don't let those hips drop",
+      "equipment": ["mat"]
+    }
+  ]
+}

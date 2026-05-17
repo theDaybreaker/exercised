@@ -1,0 +1,56 @@
+{
+  "schema_version": "1",
+  "workout_title": "5-Minute Pre-Lift Warmup",
+  "creator_username": "primeformfit",
+  "target_muscles": ["Hips", "Shoulders"],
+  "estimated_duration_mins": 5,
+  "difficulty": "beginner",
+  "extraction_confidence": "medium",
+  "routine": [
+    {
+      "type": "standard_set",
+      "exercise_name": "Hip Circle",
+      "sets": 2,
+      "reps": "10 each direction",
+      "rest_seconds": 0,
+      "form_cues": [
+        "Hands on hips, feet shoulder-width apart",
+        "Make large slow circles with your hips",
+        "Equal reps clockwise and counterclockwise"
+      ],
+      "startTimestamp": 0,
+      "sourceQuote": "We start by opening up those hips — big slow circles, both ways",
+      "equipment": []
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Arm Circle",
+      "sets": 2,
+      "reps": "10 each direction",
+      "rest_seconds": 0,
+      "form_cues": [
+        "Arms fully extended, start small and get bigger",
+        "Keep your core tight so only your arms move",
+        "Reverse after 10 — forward and backward"
+      ],
+      "startTimestamp": 45,
+      "sourceQuote": "Now shoulders — arm circles, start small and increase the range as you go",
+      "equipment": []
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Bodyweight Squat",
+      "sets": 1,
+      "reps": "15",
+      "rest_seconds": 0,
+      "form_cues": [
+        "Just warming up — lighter and controlled",
+        "Focus on depth and keeping your heels down",
+        "Prepare the joints, not the muscles"
+      ],
+      "startTimestamp": 90,
+      "sourceQuote": "Finish with light air squats — just getting the blood flowing into those legs",
+      "equipment": []
+    }
+  ]
+}

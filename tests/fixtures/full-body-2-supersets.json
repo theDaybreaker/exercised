@@ -1,0 +1,124 @@
+{
+  "schema_version": "1",
+  "workout_title": "Full-Body Power · Athletic Conditioning",
+  "creator_username": "anatomywithash",
+  "target_muscles": ["Quads", "Glutes", "Back", "Chest", "Core"],
+  "estimated_duration_mins": 55,
+  "difficulty": "advanced",
+  "extraction_confidence": "high",
+  "routine": [
+    {
+      "type": "standard_set",
+      "exercise_name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "5",
+      "rest_seconds": 180,
+      "form_cues": [
+        "Bar sits low on the traps, not on the neck",
+        "Brace your core like you're about to take a punch",
+        "Drive knees out and sit into the squat"
+      ],
+      "startTimestamp": 60,
+      "sourceQuote": "We open with heavy squats — this is a strength-focused block, so we rest fully between sets",
+      "equipment": ["barbell", "squat rack"]
+    },
+    {
+      "type": "superset",
+      "exercises": [
+        {
+          "exercise_name": "Dumbbell Bench Press",
+          "sets": 4,
+          "reps": "8-10",
+          "rest_seconds": 0,
+          "form_cues": [
+            "Lower dumbbells until elbows are at 90 degrees",
+            "Drive up and squeeze chest at the top",
+            "Control the descent — 2 counts down"
+          ],
+          "startTimestamp": 420,
+          "sourceQuote": "Into our first superset — bench press paired with rows for antagonist training",
+          "equipment": ["dumbbells", "bench"]
+        },
+        {
+          "exercise_name": "Dumbbell Bent-Over Row",
+          "sets": 4,
+          "reps": "8-10",
+          "rest_seconds": 0,
+          "form_cues": [
+            "Hinge at the hips to about 45 degrees",
+            "Drive the elbow back, not the hand",
+            "Squeeze your shoulder blade at the top"
+          ],
+          "startTimestamp": 510,
+          "sourceQuote": "Straight into rows — no rest between these two, that's the point",
+          "equipment": ["dumbbells"]
+        }
+      ],
+      "rest_seconds": 90
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Romanian Deadlift",
+      "sets": 3,
+      "reps": "10",
+      "rest_seconds": 120,
+      "form_cues": [
+        "Hinge from the hips with a neutral spine",
+        "Bar stays close to the legs throughout",
+        "Feel the hamstring load before driving back up"
+      ],
+      "startTimestamp": 780,
+      "sourceQuote": "RDLs for the posterior chain — feel the stretch in the hamstrings",
+      "equipment": ["barbell"]
+    },
+    {
+      "type": "superset",
+      "exercises": [
+        {
+          "exercise_name": "Arnold Press",
+          "sets": 3,
+          "reps": "10-12",
+          "rest_seconds": 0,
+          "form_cues": [
+            "Start with palms facing you, rotate as you press",
+            "Full range of motion — press all the way overhead",
+            "Control on the way down"
+          ],
+          "startTimestamp": 1020,
+          "sourceQuote": "Second superset — Arnold press with lateral raises, great shoulder combo",
+          "equipment": ["dumbbells"]
+        },
+        {
+          "exercise_name": "Lateral Raise",
+          "sets": 3,
+          "reps": "12-15",
+          "rest_seconds": 0,
+          "form_cues": [
+            "Slight bend in the elbow, pinky slightly higher than thumb",
+            "Raise to shoulder height, not above",
+            "Slow controlled descent"
+          ],
+          "startTimestamp": 1100,
+          "sourceQuote": "Straight into lateral raises — burn those side delts",
+          "equipment": ["dumbbells"]
+        }
+      ],
+      "rest_seconds": 75
+    },
+    {
+      "type": "standard_set",
+      "exercise_name": "Weighted Plank",
+      "sets": 3,
+      "reps": "30 seconds",
+      "rest_seconds": 60,
+      "form_cues": [
+        "Have a partner place a plate on your lower back",
+        "Neutral spine, don't let hips sag",
+        "Focus on breathing, not just holding"
+      ],
+      "startTimestamp": 1320,
+      "sourceQuote": "Finish with weighted planks — advanced move, have your partner load a plate",
+      "equipment": ["weight plate", "mat"]
+    }
+  ]
+}
