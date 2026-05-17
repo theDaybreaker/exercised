@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: "Plan 01-04 complete: D-17 strip chain + strip notice + D-18 error path; 4 of 5 plans in Phase 1 complete"
-last_updated: "2026-05-17T18:33:31.165Z"
+status: awaiting-human-checkpoint
+stopped_at: "Plan 01-05 Task 3b checkpoint: Tasks 1+2 complete (reduced-motion + mobile ActionBar + tooltips); awaiting OPS-02 (GitHub remote + Vercel deploy + cross-device smoke test)"
+last_updated: "2026-05-17T19:00:00.000Z"
 last_activity: 2026-05-17
 progress:
   total_phases: 3
@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-05-16)
 
 ## Current Position
 
-Phase: 01 (mock-deployable-premium-ui-demo) — EXECUTING
-Plan: 5 of 5 (Plans 01-01 and 01-02 complete; 01-02 Vercel deploy pending OPS-02 human gate)
-Status: Phase complete — ready for verification
+Phase: 01 (mock-deployable-premium-ui-demo) — AWAITING HUMAN CHECKPOINT
+Plan: 5 of 5 (Tasks 1+2 complete; Task 3b checkpoint — OPS-02 gate pending)
+Status: Paused at Task 3b: cross-device smoke test requires production Vercel URL
 Last activity: 2026-05-17
 
 Progress: [████████░░] 80%
@@ -74,6 +74,8 @@ Recent decisions affecting current work:
 - [Phase ?]: D-17 strip chain best-effort: if all 3 fields stripped and payload still > 2KB, function returns anyway (no hard gate per D-17 spec)
 - [Phase ?]: D-18 heading override keyed by message.includes substring — no new ErrorCode enum value needed for v1
 - [Phase ?]: noticeText() prefers D-17 verbatim form_cues copy when form_cues included; all-3 case uses Oxford-comma list
+- Plan 01-05: base-ui Tooltip.Trigger has no asChild prop — styled via className directly (Trigger renders as <button> natively; correct approach)
+- Plan 01-05: Mobile glass perf fallback is prefers-reduced-motion + max-width:480px heuristic; real mid-range Android validation deferred to Phase 4
 
 ### Pending Todos
 
@@ -85,10 +87,10 @@ Recent decisions affecting current work:
 
 [Issues that affect future work]
 
-- **OPS-02 gate:** GitHub remote not configured locally. User must run `git remote add origin <url> && git push -u origin main` to trigger Vercel auto-deploy and complete Plan 01-02's production verification.
+- **OPS-02 gate (BLOCKING Task 3b):** GitHub remote not configured locally. User must: (1) create a GitHub repo, (2) `git remote add origin <url> && git push -u origin main`, (3) connect repo to Vercel, (4) record production URL, (5) confirm cross-device share-link smoke test. Once done, type "phase 1 verified — production at $PROD_URL" to resume Task 3c.
+- **DSGN-06 (axe-core):** Blocked on production URL. ChromeDriver also unavailable locally — requires Vercel deploy or a system with ChromeDriver/Playwright.
 - **Phase 2 prep:** yt-dlp host decision (Supadata vs. Railway/Fly sidecar) deferred to Phase 3 planning — informed by Phase 2 traffic and quality signals
 - **Phase 2 prep:** Eval set (5–10 hand-labeled fitness videos + 1 non-fitness control) must be built during Phase 2 planning; ship is gated on it passing
-- **Phase 1 prep:** Glassmorphism mobile-performance test on mid-range Android required during Phase 1 UI build (backdrop-filter cost)
 
 ## Deferred Items
 
@@ -96,10 +98,13 @@ Items acknowledged and carried forward from previous milestone close:
 
 | Category | Item | Status | Deferred At |
 |----------|------|--------|-------------|
-| OPS | Vercel deploy + OPS-02 production share-link verification | Pending GitHub remote setup | Plan 01-02 |
+| OPS | Vercel deploy + OPS-02 production share-link verification | BLOCKING Task 3b — pending GitHub remote setup | Plan 01-02 |
+| A11Y | axe-core WCAG audit on production gradient (DSGN-06) | Pending production URL | Plan 01-05 |
+| PERF | Real-device mid-range Android glass-perf validation | Deferred to Phase 4 | Plan 01-05 |
+| UX | SSR pre-decode for ?w= to avoid input-flash | Deferred per RESEARCH Pitfall 2 | Plan 01-05 |
 
 ## Session Continuity
 
-Last session: 2026-05-17T18:33:31.158Z
-Stopped at: Plan 01-04 complete: D-17 strip chain + strip notice + D-18 error path; 4 of 5 plans in Phase 1 complete
+Last session: 2026-05-17T19:00:00.000Z
+Stopped at: Plan 01-05 Task 3b checkpoint — Tasks 1+2 complete; waiting for OPS-02 (GitHub + Vercel deploy + cross-device smoke test). Resume after user confirms "phase 1 verified — production at $PROD_URL".
 Resume file: None
