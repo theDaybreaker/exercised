@@ -10,15 +10,18 @@
  */
 
 import { motion, useReducedMotion } from "motion/react";
-import type { Workout } from "@/lib/schema/workout";
+import type { Workout, StripField } from "@/lib/schema/workout";
 import { WorkoutHeader } from "@/components/workout/WorkoutHeader";
 import { ExerciseCard } from "@/components/workout/ExerciseCard";
 import { SupersetCard } from "@/components/workout/SupersetCard";
 import { ActionBar } from "@/components/workout/ActionBar";
+import { ShareStripNotice } from "@/components/workout/ShareStripNotice";
 
 interface WorkoutViewProps {
   workout: Workout;
   shouldAnimateIn: boolean;
+  /** D-17: when opening a stripped share link, pass the stripped fields to render the inline notice */
+  shareLinkOmittedFields?: StripField[];
 }
 
 // Motion variants — UI-SPEC §6.2
@@ -66,7 +69,7 @@ const reducedMotionCardVariants = {
   },
 };
 
-export function WorkoutView({ workout, shouldAnimateIn }: WorkoutViewProps) {
+export function WorkoutView({ workout, shouldAnimateIn, shareLinkOmittedFields }: WorkoutViewProps) {
   const prefersReducedMotion = useReducedMotion();
 
   // When no animation: Motion treats initial/animate=false as "no animation"
@@ -90,6 +93,11 @@ export function WorkoutView({ workout, shouldAnimateIn }: WorkoutViewProps) {
       initial={initial}
       animate={animate}
     >
+      {/* D-17 strip notice — above header when share link was stripped */}
+      {shareLinkOmittedFields && shareLinkOmittedFields.length > 0 && (
+        <ShareStripNotice strippedFields={shareLinkOmittedFields} />
+      )}
+
       {/* Workout header — animates first */}
       <motion.div variants={effectiveHeaderVariants}>
         <WorkoutHeader workout={workout} />

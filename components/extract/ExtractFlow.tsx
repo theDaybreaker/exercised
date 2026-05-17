@@ -175,6 +175,7 @@ export function ExtractFlow() {
       <WorkoutView
         workout={state.workout}
         shouldAnimateIn={!state.fromShareLink}
+        shareLinkOmittedFields={state.fromShareLink ? state.stripped : undefined}
       />
     );
   }

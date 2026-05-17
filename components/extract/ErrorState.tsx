@@ -52,9 +52,26 @@ const ERROR_CONFIG: Record<
   },
 };
 
+/**
+ * D-18 heading override: when the error message contains the canonical D-18 substring
+ * ("newer version of Exercised"), surface the friendly schema-version-specific heading
+ * and body instead of the generic UNKNOWN heading.
+ *
+ * This keeps the dispatch shape simple (just `code: "UNKNOWN", message: "..."`) while
+ * surfacing the right copy in the UI. Future plans may introduce a dedicated
+ * `code: "SCHEMA_VERSION"` action to make this more explicit.
+ */
+const D18_SUBSTR = "newer version of Exercised";
+const D18_HEADING = "This share link uses a newer version.";
+const D18_BODY = "Try pasting the original YouTube URL instead.";
+
 export function ErrorState({ code, message, onRecover }: ErrorStateProps) {
   const config = ERROR_CONFIG[code];
-  const body = code === "UNKNOWN" ? message : config.body;
+
+  // D-18 override: schema_version mismatch — friendly message over generic UNKNOWN
+  const isD18 = code === "UNKNOWN" && message.includes(D18_SUBSTR);
+  const heading = isD18 ? D18_HEADING : config.heading;
+  const body = isD18 ? D18_BODY : code === "UNKNOWN" ? message : config.body;
 
   return (
     <div
@@ -66,7 +83,7 @@ export function ErrorState({ code, message, onRecover }: ErrorStateProps) {
         className="text-[22px] font-semibold leading-snug tracking-tight"
         style={{ color: "var(--color-text-primary)" }}
       >
-        {config.heading}
+        {heading}
       </h2>
 
       {/* Body — Body size (16px/400 per UI-SPEC §3) */}

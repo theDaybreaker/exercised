@@ -17,6 +17,7 @@ import type { Workout } from "@/lib/schema/workout";
 import { workoutToMarkdown } from "@/lib/clipboard/markdown";
 import { workoutToPlainText } from "@/lib/clipboard/plaintext";
 import { encodeShareUrl } from "@/lib/share/encode";
+import { noticeText } from "@/lib/share/notice";
 
 interface ActionBarProps {
   workout: Workout;
@@ -36,10 +37,17 @@ export function ActionBar({ workout }: ActionBarProps) {
   }
 
   async function handleShare() {
-    const { encoded } = encodeShareUrl(workout);
+    const { encoded, stripped } = encodeShareUrl(workout);
     const url = `${window.location.origin}/?w=${encoded}`;
     await navigator.clipboard.writeText(url);
-    toast.success("Share link copied");
+    const notice = noticeText(stripped);
+    if (notice) {
+      toast.success("Share link copied", {
+        description: notice,
+      });
+    } else {
+      toast.success("Share link copied");
+    }
   }
 
   return (
