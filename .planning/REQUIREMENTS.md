@@ -36,7 +36,7 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 - [x] **OUTV-02**: Difficulty chip (beginner/intermediate/advanced) renders in the header when present in the schema
 - [x] **OUTV-03**: Exercise list is scrollable and renders each `standard_set` as an exercise card with name, sets, reps, rest, and an expandable "Form Cues" toggle
 - [x] **OUTV-04**: `superset` entries render as a visually-grouped bracketed card containing the inner exercises and a single shared rest indicator
-- [x] **OUTV-05**: A "Watch on YouTube" link / button is visible on the output, linking to the source video and crediting the creator
+- [x] **OUTV-05**: A "Watch on YouTube" link / button is visible on the output, linking to the source video and crediting the creator *(Phase 1 stub: links to `@creator` channel; per-video link requires `video_url` schema field — added in Phase 2 when real captions pipeline yields the source URL)*
 - [x] **OUTV-06**: A footer-level AI-disclaimer line is present on the output ("AI-extracted; verify form and reps in the source video")
 - [x] **OUTV-07**: Output view is fully mobile-responsive — touch-target sizes meet 44px minimum and cards reflow on phone widths
 
@@ -52,8 +52,8 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 - [x] **DSGN-02**: Cards use glassmorphism (semi-translucent background, backdrop-blur, thin 10%-white border) with 10–15% card opacity for legibility
 - [x] **DSGN-03**: A single accent color (neon green or electric blue) is applied consistently across CTAs, focus rings, and active stage indicators
 - [x] **DSGN-04**: Typography uses Inter, Outfit, or Geist loaded via `next/font` with zero CLS
-- [ ] **DSGN-05**: Micro-animations on hover (cards lift / glow subtly) and on stage transitions during loading; respects `prefers-reduced-motion`
-- [ ] **DSGN-06**: WCAG 4.5:1 contrast ratio is met on all primary body text against the glassmorphic backgrounds
+- [x] **DSGN-05**: Micro-animations on hover (cards lift / glow subtly) and on stage transitions during loading; respects `prefers-reduced-motion`
+- [x] **DSGN-06**: WCAG 4.5:1 contrast ratio is met on all primary body text against the glassmorphic backgrounds
 
 ### Error & Empty States
 
@@ -168,8 +168,8 @@ Updated during roadmap creation by the roadmapper.
 | DSGN-02 | Phase 1 | Complete |
 | DSGN-03 | Phase 1 | Complete |
 | DSGN-04 | Phase 1 | Complete |
-| DSGN-05 | Phase 1 | Pending |
-| DSGN-06 | Phase 1 | Pending |
+| DSGN-05 | Phase 1 | Complete |
+| DSGN-06 | Phase 1 | Complete |
 | ERRS-01 | Phase 1 | Complete |
 | ERRS-02 | Phase 1 | Complete |
 | ERRS-03 | Phase 1 | Complete |
@@ -200,4 +200,4 @@ Updated during roadmap creation by the roadmapper.
 
 ---
 *Requirements defined: 2026-05-16*
-*Last updated: 2026-05-16 after roadmap creation (traceability populated)*
+*Last updated: 2026-05-17 — Phase 1 complete (DSGN-05/06 closed; OUTV-05 stub annotation added).*
