@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: "Phase 1 complete — production live at https://exercised-ten.vercel.app, all 5 success criteria met. Ready to start Phase 2."
-last_updated: "2026-05-17T00:00:00.000Z"
+status: "Phase 1 shipped to https://exercised-ten.vercel.app on 2026-05-17"
+stopped_at: Phase 2 context gathered
+last_updated: "2026-05-17T21:35:42.418Z"
 last_activity: 2026-05-17
 progress:
   total_phases: 3
@@ -107,6 +107,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-17T00:00:00.000Z
-Stopped at: Phase 1 complete — production live at https://exercised-ten.vercel.app (HEAD=25cdbe3), all 5 success criteria met. Ready to start Phase 2 planning.
-Resume file: None
+Last session: 2026-05-17T21:35:42.410Z
+Stopped at: Phase 2 context gathered
+Resume file: .planning/phases/02-real-captions-pipeline-cost-protections/02-CONTEXT.md
