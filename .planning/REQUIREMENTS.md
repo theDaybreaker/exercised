@@ -33,12 +33,12 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 ### Workout Output View
 
 - [x] **OUTV-01**: Output view renders workout title, creator username, estimated duration, and target muscles as styled pill tags in a header section
-- [ ] **OUTV-02**: Difficulty chip (beginner/intermediate/advanced) renders in the header when present in the schema
+- [x] **OUTV-02**: Difficulty chip (beginner/intermediate/advanced) renders in the header when present in the schema
 - [x] **OUTV-03**: Exercise list is scrollable and renders each `standard_set` as an exercise card with name, sets, reps, rest, and an expandable "Form Cues" toggle
 - [x] **OUTV-04**: `superset` entries render as a visually-grouped bracketed card containing the inner exercises and a single shared rest indicator
 - [x] **OUTV-05**: A "Watch on YouTube" link / button is visible on the output, linking to the source video and crediting the creator
 - [x] **OUTV-06**: A footer-level AI-disclaimer line is present on the output ("AI-extracted; verify form and reps in the source video")
-- [ ] **OUTV-07**: Output view is fully mobile-responsive — touch-target sizes meet 44px minimum and cards reflow on phone widths
+- [x] **OUTV-07**: Output view is fully mobile-responsive — touch-target sizes meet 44px minimum and cards reflow on phone widths
 
 ### Save & Share (No-Auth)
 
@@ -57,9 +57,9 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 
 ### Error & Empty States
 
-- [ ] **ERRS-01**: Invalid URL submitted → inline form error, no API call made
-- [ ] **ERRS-02**: Extraction failure (network, server, transcript missing) → friendly error state with retry CTA, distinct copy per failure reason
-- [ ] **ERRS-03**: No workout content detected in the video → honest empty state ("We couldn't find a workout in this video") rather than fabricated content
+- [x] **ERRS-01**: Invalid URL submitted → inline form error, no API call made
+- [x] **ERRS-02**: Extraction failure (network, server, transcript missing) → friendly error state with retry CTA, distinct copy per failure reason
+- [x] **ERRS-03**: No workout content detected in the video → honest empty state ("We couldn't find a workout in this video") rather than fabricated content
 - [ ] **ERRS-04**: Low-confidence extraction surfaces a banner on the output explaining results may be incomplete
 
 ### Real Extraction Pipeline (AI)
@@ -155,12 +155,12 @@ Updated during roadmap creation by the roadmapper.
 | PIPE-05 | Phase 1 | Complete |
 | PIPE-06 | Phase 1 | Complete |
 | OUTV-01 | Phase 1 | Complete |
-| OUTV-02 | Phase 1 | Pending |
+| OUTV-02 | Phase 1 | Complete |
 | OUTV-03 | Phase 1 | Complete |
 | OUTV-04 | Phase 1 | Complete |
 | OUTV-05 | Phase 1 | Complete |
 | OUTV-06 | Phase 1 | Complete |
-| OUTV-07 | Phase 1 | Pending |
+| OUTV-07 | Phase 1 | Complete |
 | SHRE-01 | Phase 1 | Complete |
 | SHRE-02 | Phase 1 | Complete |
 | SHRE-03 | Phase 1 | Complete |
@@ -170,9 +170,9 @@ Updated during roadmap creation by the roadmapper.
 | DSGN-04 | Phase 1 | Complete |
 | DSGN-05 | Phase 1 | Pending |
 | DSGN-06 | Phase 1 | Pending |
-| ERRS-01 | Phase 1 | Pending |
-| ERRS-02 | Phase 1 | Pending |
-| ERRS-03 | Phase 1 | Pending |
+| ERRS-01 | Phase 1 | Complete |
+| ERRS-02 | Phase 1 | Complete |
+| ERRS-03 | Phase 1 | Complete |
 | OPS-01 | Phase 1 | Complete |
 | OPS-02 | Phase 1 | Complete |
 | OPS-03 | Phase 1 | Complete |
