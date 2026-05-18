@@ -66,7 +66,7 @@ decisions:
 metrics:
   duration_minutes: 8
   completed_date: "2026-05-18"
-  tasks_completed: 2
+  tasks_completed: 3
   tasks_total: 3
   files_created: 6
   files_modified: 5
@@ -82,7 +82,7 @@ metrics:
 |---|------|--------|--------|
 | 1 | ConfidenceBanner + cached badge + ErrorState wiring | 76aad89 | Complete |
 | 2 | /about page + footer DMCA link + smoke cron + vercel.json | bc2b171 | Complete |
-| 3 | Human verify — /about page content + ALERT_EMAIL blocker | — | **Checkpoint** |
+| 3 | Human verify — /about page content + ALERT_EMAIL blocker | — | **Approved by user** |
 
 ## What Was Built
 
@@ -158,15 +158,35 @@ None — the plan was executed exactly as written with one minor clarification:
 
 **`tests/eval/smoke.json`** — Placeholder videoId `dQw4w9WgXcQ` (Rick Astley — not a fitness video). The smoke cron will fail the `expectedExerciseCount: 5` check if it runs against this fixture. Plan 02-06 replaces this with a real known-good fitness video. The smoke cron infra is fully wired; only the fixture needs updating.
 
-## Blockers / Concerns
+## Human Verify — Task 3 Results
 
-**ALERT_EMAIL launch blocker (D-24d):** The contact email for DMCA takedowns in `/about` defaults to `hello@exercised.app`. This is a placeholder. Per D-24d, Phase 2 CANNOT ship to production until this email is reachable. User must either:
-1. Own `exercised.app` domain and configure a forwarder for `hello@exercised.app`, OR
-2. Set `ALERT_EMAIL` to a personal email in Vercel environment variables
+**Status:** Approved by user (2026-05-18)
 
-The human-verify checkpoint (Task 3) surfaces this blocker explicitly.
+**Checks passed:**
+1. Main page renders correctly with no console errors
+2. Footer "Terms & DMCA" link navigates to /about
+3. /about page renders with all 3 sections (What this is / AI accuracy / DMCA contact)
 
-**CRON_SECRET not set:** The smoke cron will return 401 for all requests until `CRON_SECRET` is set in Vercel environment variables. Generate with: `openssl rand -base64 32`.
+**ALERT_EMAIL blocker (D-24d):** RESOLVED for development — ALERT_EMAIL is set in .env.local (pulled from Vercel Preview environment). Production env vars to be confirmed in Plan 02-07.
+
+## Deferred Credentials (Carry Forward to Plan 02-07)
+
+The following env vars are not yet set. Smoke-test alerting degrades gracefully without them (console.error fallback). These must be configured before the Phase 2 production ship gate:
+
+| Env Var | Purpose | Status | Source |
+|---------|---------|--------|--------|
+| `RESEND_API_KEY` | Smoke failure email alerts (D-27c) | Pending | https://resend.com/api-keys |
+| `GITHUB_TOKEN` | Auto-open GitHub Issue on smoke failure (D-27d) | Pending | GitHub → Settings → Developer settings → PAT with repo scope |
+| `GITHUB_REPO` | Target repo for auto-issues | Pending | Set to `username/exercised` |
+| `CRON_SECRET` | Vercel Cron auth — smoke cron returns 401 without this | Pending | `openssl rand -hex 32` — set in Vercel Environment Variables |
+
+**Note:** `CRON_SECRET` is auto-injected by Vercel when the cron is configured in the dashboard, but must be explicitly set in environment variables to match. Plan 02-07 owner-action checklist must verify all four are set before EXTRACT_MODE=real flip.
+
+## Blockers / Concerns (Historical)
+
+**ALERT_EMAIL launch blocker (D-24d):** RESOLVED — ALERT_EMAIL is set in .env.local. Production confirmation in Plan 02-07.
+
+**CRON_SECRET not yet set:** The smoke cron returns 401 for all requests until `CRON_SECRET` is configured in Vercel environment variables. Deferred to Plan 02-07 owner-action checklist.
 
 ## Threat Flags
 
@@ -184,3 +204,6 @@ No new threat surface beyond what is documented in the plan's threat model. All 
 | `tests/eval/smoke.json` | FOUND |
 | Commit `76aad89` (Task 1) | FOUND |
 | Commit `bc2b171` (Task 2) | FOUND |
+| Task 3 human verification | APPROVED |
+
+**Plan complete** — all 3 tasks executed, human checkpoint approved, deferred credentials documented for Plan 02-07.
