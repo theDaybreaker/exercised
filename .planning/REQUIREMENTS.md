@@ -60,7 +60,7 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 - [x] **ERRS-01**: Invalid URL submitted → inline form error, no API call made
 - [x] **ERRS-02**: Extraction failure (network, server, transcript missing) → friendly error state with retry CTA, distinct copy per failure reason
 - [x] **ERRS-03**: No workout content detected in the video → honest empty state ("We couldn't find a workout in this video") rather than fabricated content
-- [ ] **ERRS-04**: Low-confidence extraction surfaces a banner on the output explaining results may be incomplete
+- [x] **ERRS-04**: Low-confidence extraction surfaces a banner on the output explaining results may be incomplete
 
 ### Real Extraction Pipeline (AI)
 
@@ -83,8 +83,8 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 - [x] **OPS-01**: App deploys to Vercel from `main` with one-click rollback
 - [x] **OPS-02**: Mock-mode demo is deployed and shareable from the end of Phase 1
 - [x] **OPS-03**: `/api/extract` route uses Vercel Fluid Compute with `maxDuration = 300`
-- [ ] **OPS-04**: DMCA contact page and basic ToS/AI-disclaimer page exist before the real pipeline ships
-- [ ] **OPS-05**: Daily smoke test extracts a known-good YouTube video and alerts on failure (yt-dlp / caption-API drift)
+- [x] **OPS-04**: DMCA contact page and basic ToS/AI-disclaimer page exist before the real pipeline ships
+- [x] **OPS-05**: Daily smoke test extracts a known-good YouTube video and alerts on failure (yt-dlp / caption-API drift)
 
 ## v2 Requirements
 
@@ -184,9 +184,9 @@ Updated during roadmap creation by the roadmapper.
 | COST-02 | Phase 2 | Complete |
 | COST-03 | Phase 2 | Complete |
 | COST-04 | Phase 2 | Pending |
-| ERRS-04 | Phase 2 | Pending |
-| OPS-04 | Phase 2 | Pending |
-| OPS-05 | Phase 2 | Pending |
+| ERRS-04 | Phase 2 | Complete |
+| OPS-04 | Phase 2 | Complete |
+| OPS-05 | Phase 2 | Complete |
 | EXTR-05 | Phase 3 | Pending |
 | COST-05 | Phase 3 | Pending |
 
