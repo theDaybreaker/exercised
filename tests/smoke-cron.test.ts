@@ -95,10 +95,12 @@ describe("smoke cron route — existence and structure (D-27, OPS-05)", () => {
     expect(content).toContain("safeParse");
   });
 
-  it("cron route checks exercise count within ±1 of expected", () => {
+  it("cron route checks exercise count within expected range", () => {
     const content = readFile("app/api/cron/smoke/route.ts");
+    // Plan 02-06 refactored cron handler to support min/max range alongside legacy single-value ±1.
     expect(content).toContain("expectedExerciseCount");
-    expect(content).toContain("countDelta");
+    expect(content).toMatch(/expectedMin|expectedExerciseCountMin/);
+    expect(content).toMatch(/expectedMax|expectedExerciseCountMax/);
   });
 });
 
@@ -116,11 +118,16 @@ describe("smoke.json fixture (D-27b)", () => {
     expect(typeof json.videoId).toBe("string");
   });
 
-  it("smoke.json has expectedExerciseCount field", () => {
+  it("smoke.json has an expected exercise count (singular or min/max range)", () => {
+    // Plan 02-06 refactored to a min/max range; the cron handler supports either shape.
     const content = readFile("tests/eval/smoke.json");
     const json = JSON.parse(content) as Record<string, unknown>;
-    expect(json).toHaveProperty("expectedExerciseCount");
-    expect(typeof json.expectedExerciseCount).toBe("number");
+    const hasSingular =
+      typeof json.expectedExerciseCount === "number";
+    const hasRange =
+      typeof json.expectedExerciseCountMin === "number" &&
+      typeof json.expectedExerciseCountMax === "number";
+    expect(hasSingular || hasRange).toBe(true);
   });
 });
 
