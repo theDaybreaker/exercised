@@ -18,7 +18,8 @@
 
 import { Button } from "@/components/ui/button";
 
-type ErrorCode = "NETWORK" | "NO_WORKOUT" | "RATE_LIMITED" | "UNKNOWN";
+// HTTP pre-flight error codes (429/503) + SSE error codes (NETWORK/NO_WORKOUT/UNKNOWN)
+type ErrorCode = "NETWORK" | "NO_WORKOUT" | "RATE_LIMITED" | "BUDGET_EXHAUSTED" | "UNKNOWN";
 
 interface ErrorStateProps {
   code: ErrorCode;
@@ -43,6 +44,13 @@ const ERROR_CONFIG: Record<
   RATE_LIMITED: {
     heading: "Slow down for a moment.",
     body: "You've extracted a lot of workouts recently. Wait a minute and try again.",
+    cta: "Got it",
+  },
+  // D-20e: Budget exhausted (HTTP 503) — Plan 02-05 will add the ConfidenceBanner treatment;
+  // this entry provides a working fallback with friendly copy until that plan ships.
+  BUDGET_EXHAUSTED: {
+    heading: "We're popular today.",
+    body: "We've hit our daily extraction budget. Try again tomorrow — the budget refills at midnight UTC.",
     cta: "Got it",
   },
   UNKNOWN: {

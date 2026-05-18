@@ -22,8 +22,11 @@ export const STAGE_ORDER = [
 
 export type Stage = (typeof STAGE_ORDER)[number];
 
-// ─── Error codes from ExtractEventSchema ───
-export type ErrorCode = "NETWORK" | "NO_WORKOUT" | "RATE_LIMITED" | "UNKNOWN";
+// ─── Error codes from ExtractEventSchema + HTTP pre-flight errors ───
+// SSE error codes: NETWORK | NO_WORKOUT | UNKNOWN (from ExtractEventSchema)
+// HTTP pre-flight error codes: RATE_LIMITED (HTTP 429) | BUDGET_EXHAUSTED (HTTP 503)
+// All are dispatched via the same { type: "error", code, message } action.
+export type ErrorCode = "NETWORK" | "NO_WORKOUT" | "RATE_LIMITED" | "BUDGET_EXHAUSTED" | "UNKNOWN";
 
 // ─── State union ───
 export type State =
@@ -40,6 +43,10 @@ export type State =
       workout: Workout;
       fromShareLink: boolean;
       stripped: StripField[];
+      // D-23: low-confidence signal from LLM (Plan 02-04 — forwarded from SSE result event)
+      lowConfidence: boolean;
+      // D-26d: served from cache (Plan 02-04 — forwarded from SSE result event)
+      cached: boolean;
     }
   | { kind: "error"; code: ErrorCode; message: string };
 
@@ -47,7 +54,7 @@ export type State =
 export type Action =
   | { type: "submit"; url: string }
   | { type: "stage"; stage: Stage }
-  | { type: "success"; workout: Workout }
+  | { type: "success"; workout: Workout; lowConfidence?: boolean; cached?: boolean }
   | { type: "hydrate"; workout: Workout; stripped: StripField[] }
   | { type: "error"; code: ErrorCode; message: string }
   | { type: "reset" };
@@ -90,6 +97,8 @@ export function reducer(state: State, action: Action): State {
         workout: action.workout,
         fromShareLink: false,
         stripped: [],
+        lowConfidence: action.lowConfidence ?? false,
+        cached: action.cached ?? false,
       };
 
     case "hydrate":
@@ -98,6 +107,9 @@ export function reducer(state: State, action: Action): State {
         workout: action.workout,
         fromShareLink: true,
         stripped: action.stripped,
+        // Share-link hydrations are always "original" extractions — not cached, not low-confidence
+        lowConfidence: false,
+        cached: false,
       };
 
     case "error":

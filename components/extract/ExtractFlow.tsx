@@ -74,15 +74,48 @@ export function ExtractFlow() {
         signal: ac.signal,
       });
 
-      if (!res.ok || !res.body) {
+      // HTTP pre-flight check: handle 429/503 BEFORE reading the SSE stream.
+      // These are returned by route.ts before the SSE stream opens (D-20d / D-20e).
+      if (res.status === 429) {
+        let message = "You've extracted 5 workouts in the last hour. Try again in a bit.";
+        try {
+          const errJson = await res.json();
+          message = errJson.message ?? message;
+        } catch {
+          // ignore JSON parse error — use default message
+        }
+        dispatch({ type: "error", code: "RATE_LIMITED", message });
+        return;
+      }
+
+      if (res.status === 503) {
+        let message = "We're popular today — try again tomorrow. (Daily extraction budget refills at midnight UTC.)";
+        try {
+          const errJson = await res.json();
+          if (errJson.error === "BUDGET_EXHAUSTED") {
+            message = errJson.message ?? message;
+          }
+        } catch {
+          // ignore JSON parse error — use default message
+        }
+        dispatch({ type: "error", code: "BUDGET_EXHAUSTED", message });
+        return;
+      }
+
+      if (!res.ok) {
         let message = "Extraction failed";
         try {
           const errJson = await res.json();
-          message = errJson.error ?? message;
+          message = errJson.error ?? errJson.message ?? message;
         } catch {
           // ignore parse error
         }
         dispatch({ type: "error", code: "UNKNOWN", message });
+        return;
+      }
+
+      if (!res.body) {
+        dispatch({ type: "error", code: "UNKNOWN", message: "Connection error" });
         return;
       }
 
@@ -117,7 +150,14 @@ export function ExtractFlow() {
             if (event.type === "stage") {
               dispatch({ type: "stage", stage: event.stage });
             } else if (event.type === "result") {
-              dispatch({ type: "success", workout: event.workout });
+              // Forward lowConfidence and cached from SSE result to success state
+              // (D-23 low-confidence banner + D-26d cached badge — rendered in Plan 02-05)
+              dispatch({
+                type: "success",
+                workout: event.workout,
+                lowConfidence: event.lowConfidence,
+                cached: event.cached,
+              });
             } else if (event.type === "error") {
               dispatch({
                 type: "error",
@@ -199,7 +239,7 @@ export function ExtractFlow() {
         // The plan allows either approach; we pick: no key bump = fresh UrlInput.
         setUrlInputKey((k) => k + 1);
       } else {
-        // NO_WORKOUT / RATE_LIMITED / UNKNOWN: clear URL, return to idle
+        // NO_WORKOUT / RATE_LIMITED / BUDGET_EXHAUSTED / UNKNOWN: clear URL, return to idle
         lastUrlRef.current = null;
         dispatch({ type: "reset" });
         setUrlInputKey((k) => k + 1);
