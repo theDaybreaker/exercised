@@ -126,4 +126,22 @@ describe("share URL round-trip (W6, D-16, D-18, T-02-01)", () => {
       }
     }
   });
+
+  it("9. video_url: null round-trips correctly (D-25e)", () => {
+    // Fixture has video_url: null after Task 2 backfill
+    const workoutWithNullUrl = WorkoutSchema.parse({ ...fixture, video_url: null });
+    const { encoded } = encodeShareUrl(workoutWithNullUrl);
+    const decoded = decodeShareUrl(encoded);
+    expect(decoded.workout.video_url).toBeNull();
+  });
+
+  it("10. video_url: valid URL round-trips correctly (D-25e)", () => {
+    const workoutWithUrl = WorkoutSchema.parse({
+      ...fixture,
+      video_url: "https://youtube.com/watch?v=test123",
+    });
+    const { encoded } = encodeShareUrl(workoutWithUrl);
+    const decoded = decodeShareUrl(encoded);
+    expect(decoded.workout.video_url).toBe("https://youtube.com/watch?v=test123");
+  });
 });
