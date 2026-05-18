@@ -6,6 +6,7 @@
   "estimated_duration_mins": 30,
   "difficulty": "beginner",
   "extraction_confidence": "high",
+  "video_url": null,
   "routine": [
     {
       "type": "standard_set",

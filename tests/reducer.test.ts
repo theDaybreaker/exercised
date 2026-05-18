@@ -15,6 +15,7 @@ const VALID_WORKOUT = {
   estimated_duration_mins: 30,
   difficulty: "intermediate" as const,
   extraction_confidence: "high" as const,
+  video_url: null as string | null, // D-25a — required-nullable
   routine: [
     {
       type: "standard_set" as const,

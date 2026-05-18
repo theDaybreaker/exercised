@@ -82,9 +82,9 @@ export function ActionBar({ workout }: ActionBarProps) {
           "md:justify-end md:mt-6",
         ].join(" ")}
       >
-        {/* Watch on YouTube — OUTV-05 */}
+        {/* Watch on YouTube — OUTV-05, D-25d: prefer video_url over @creator channel link */}
         <a
-          href={`https://youtube.com/@${workout.creator_username}`}
+          href={workout.video_url ?? `https://youtube.com/@${workout.creator_username}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex h-11 items-center gap-2 rounded-lg border px-4 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground"
