@@ -78,15 +78,12 @@ export const MockExtractionService = {
       return;
     }
 
-    if (/rate-limit/i.test(url)) {
-      await sleep(300);
-      yield {
-        type: "error",
-        code: "RATE_LIMITED",
-        message: "You've extracted a lot of workouts recently.",
-      };
-      return;
-    }
+    // D-13/D-20d: rate-limit keyword no longer emits an SSE RATE_LIMITED event.
+    // In the real pipeline, rate limiting returns HTTP 429 before the SSE stream opens.
+    // The mock route handler (route.ts) checks for this keyword and returns HTTP 429
+    // directly in mock mode. If this service method IS called with a rate-limit URL,
+    // it means the route-level check was bypassed — fall through to normal extraction.
+    // (See route.ts mock-mode rate-limit shortcut.)
 
     // D-12 — deterministic fixture selection via videoId hash
     const { videoId } = parseYouTubeUrl(url);

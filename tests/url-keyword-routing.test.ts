@@ -79,17 +79,21 @@ describe("MockExtractionService — URL-keyword error routing (D-13)", () => {
   );
 
   it(
-    "'rate-limit' URL yields: exactly one RATE_LIMITED error event",
+    "'rate-limit' URL falls through to normal extraction in MockExtractionService (D-20d: HTTP 429 is now route-level)",
     async () => {
+      // ARCHITECTURE CHANGE (Plan 02-04): RATE_LIMITED is no longer an SSE event.
+      // In mock mode, route.ts detects the /rate-limit/i keyword and returns HTTP 429
+      // BEFORE calling MockExtractionService.extract(). If the service IS called with
+      // this URL (bypassing route.ts), it falls through to normal extraction — 5 events.
       const url = "https://youtube.com/watch?v=rate-limit-demo-1";
       const events = await collectEventsWithFakeTimers(url);
 
-      expect(events).toHaveLength(1);
-      expect(events[0]).toMatchObject({
-        type: "error",
-        code: "RATE_LIMITED",
-        message: "You've extracted a lot of workouts recently.",
-      });
+      // Normal extraction: 4 stage events + 1 result event
+      expect(events).toHaveLength(5);
+      expect(events[0]).toMatchObject({ type: "stage", stage: "fetching" });
+      expect(events[4]).toMatchObject({ type: "result" });
+      // No RATE_LIMITED event — that is an HTTP 429 response from route.ts
+      expect(events.find((e) => e.code === "RATE_LIMITED")).toBeUndefined();
     },
     10000
   );

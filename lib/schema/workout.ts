@@ -51,10 +51,20 @@ export const ExtractEventSchema = z.discriminatedUnion("type", [
     type: z.literal("stage"),
     stage: z.enum(["fetching", "transcribing", "analyzing", "generating"]),
   }),
-  z.object({ type: z.literal("result"), workout: WorkoutSchema }),
+  z.object({
+    type: z.literal("result"),
+    workout: WorkoutSchema,
+    // D-26d: cached: true if served from videoId cache (no AI call made)
+    cached: z.boolean().optional(),
+    // D-23: low-confidence multi-signal trigger (Plan 02-05 renders ConfidenceBanner)
+    lowConfidence: z.boolean().optional(),
+  }),
   z.object({
     type: z.literal("error"),
-    code: z.enum(["NETWORK", "NO_WORKOUT", "RATE_LIMITED", "UNKNOWN"]),
+    // NOTE: RATE_LIMITED and BUDGET_EXHAUSTED are HTTP-level responses (429 / 503),
+    // NOT SSE events. They are returned before the SSE stream opens.
+    // ExtractFlow.tsx handles them by checking response.status.
+    code: z.enum(["NETWORK", "NO_WORKOUT", "UNKNOWN"]),
     message: z.string(),
   }),
 ]);
