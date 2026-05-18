@@ -80,6 +80,7 @@ The web app is the first surface; a native mobile app is the long-term target. T
 | Lock the design brief (dark, glassmorphism, neon accents, Inter/Outfit) | Premium aesthetic is part of core value, not a polish layer | — Pending |
 | Phase 1: accept ~4–5s loading cadence over "~3s" (SC-1) | Per D-07 (CONTEXT.md), 4–5s feels deliberate and premium; sub-3s feels rushed and breaks the stage-cascade animation. SC-1 wording is the legacy aspiration; D-07 is the lived decision. | Accepted 2026-05-17 — VERIFICATION.md flagged the deviation; user confirmed D-07 stands. |
 | Phase 1: OUTV-05 "Watch on YouTube" stub (channel, not source video) | `WorkoutSchema` v1 has no `video_url` field. Linking to the source video requires a schema migration; deferred to Phase 2 where the real captions pipeline already has the source URL on hand. | Accepted 2026-05-17 — Phase 2 will add `video_url: z.string().url()` to WorkoutSchema, plumb through to ActionBar, and migrate the 5 fixtures. |
+| Plan 02-06: 3-video eval instead of D-21's 9-video set | D-21b specifies 8 fitness categories + 1 non-fitness control. 3 YouTube Shorts used instead: fastest path to binary gate passing; all 3 are real fitness videos. D-21c non-fitness control (NO_WORKOUT criterion) is uncovered and deferred to Phase 3. | Accepted 2026-05-18 — user-approved before Task 1 execution. Phase 3 must add non-fitness control fixture before EXTRACT_MODE=real production traffic. |
 
 ## Evolution
 

@@ -56,7 +56,7 @@ Plans:
 - [x] 02-03-PLAN.md — Extraction pipeline building blocks: lib/youtube/captions.ts (primary+fallback) + lib/ai/extract.ts (generateText+Output.object) + lib/guards/sourceQuote.ts (hallucination guard)
 - [x] 02-04-PLAN.md — Wire route.ts: all cost defenses in sequence + RealExtractionService stub replacement + BUDGET_EXHAUSTED SSE error code
 - [x] 02-05-PLAN.md — UI affordances + ops: ConfidenceBanner + BUDGET_EXHAUSTED ErrorState + cached badge + /about page + smoke-test cron handler + vercel.json
-- [x] 02-06-PLAN.md — Eval set: 9 fixture files + tests/eval/run.ts (pnpm eval) + human checkpoint for URL selection + binary pass gate
+- [x] 02-06-PLAN.md — Eval set: 3 YouTube Shorts fixtures + tests/eval/run.eval.test.ts (pnpm eval) + binary pass gate (exits 0: 39s cold, 3.25s warm cache hit) + mid-flight fixes: Vitest discovery + Redis client explicit env-var
 - [ ] 02-07-PLAN.md — Ship gate: 8-defense pre-flight audit + owner actions (OpenAI/Vercel dashboard caps) + EXTRACT_MODE=real flip + production smoke verify + STATE.md update
 
 ### Phase 3: Audio Fallback for Uncaptioned Videos
@@ -78,5 +78,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Mock-Deployable Premium UI Demo | 5/5 | Complete | 2026-05-17 |
-| 2. Real Captions Pipeline + Cost Protections | 6/7 | In Progress|  |
+| 2. Real Captions Pipeline + Cost Protections | 6/7 | In Progress | — |
 | 3. Audio Fallback for Uncaptioned Videos | 0/TBD | Not started | - |

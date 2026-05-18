@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-05-16)
 ## Current Position
 
 Phase: 02 (real-captions-pipeline-cost-protections) — EXECUTING
-Plan: 6 of 7
+Plan: 7 of 7
 Status: Ready to execute
 Last activity: 2026-05-18
 
-Progress: [████████░░] 83%
+Progress: [█████████░] 92%
 
 ## Performance Metrics
 
@@ -62,6 +62,7 @@ Progress: [████████░░] 83%
 | Phase 02 P03 | 4 | 3 tasks | 6 files |
 | Phase 02 P04 | 68 | 3 tasks | 10 files |
 | Phase 02 P05 | 8 | 3 tasks (2 code + 1 human-verify) | 6 files created, 5 modified |
+| Phase 02 P06 | 45 | 2 tasks (1 auto + 1 human-verify) + mid-flight fixes | 6 files created, 4 modified |
 
 ## Accumulated Context
 
@@ -84,6 +85,10 @@ Recent decisions affecting current work:
 - Plan 01-05: base-ui Tooltip.Trigger has no asChild prop — styled via className directly (Trigger renders as <button> natively; correct approach)
 - Plan 01-05: Mobile glass perf fallback is prefers-reduced-motion + max-width:480px heuristic; real mid-range Android validation deferred to Phase 4
 - Phase 1 shipped to https://exercised-ten.vercel.app on 2026-05-17 — 5 plans, ~140 min total. All 36 Phase 1 REQ-IDs traceable to completed plans. DSGN-06 (axe-core 0 violations) + OPS-02 (cross-device share-link smoke) both closed.
+- Plan 02-06: 3-video eval (all YouTube Shorts) accepted instead of D-21's 9-video set — user-approved scope reduction; long-form eval and D-21c non-fitness control deferred to Phase 3
+- Plan 02-06: expectedResult:"either" for Shorts — caption availability unreliable; both workout extraction and graceful NO_WORKOUT are valid outcomes
+- Plan 02-06: Redis client rewritten to explicit env-var resolution with throw-on-missing — eliminates silent broken-client path from Redis.fromEnv() when Vercel Sensitive flag strips env var values
+- Plan 02-06: Vercel Sensitive flag decision deferred to Plan 02-07 — decide whether to mark KV_*/TOKEN vars non-Sensitive (enables vercel env pull) or maintain .env.local manually
 
 ### Pending Todos
 
@@ -97,6 +102,16 @@ Recent decisions affecting current work:
 
 - **Phase 2 prep:** yt-dlp host decision (Supadata vs. Railway/Fly sidecar) deferred to Phase 3 planning — informed by Phase 2 traffic and quality signals
 - **Phase 2 prep:** Eval set (5–10 hand-labeled fitness videos + 1 non-fitness control) must be built during Phase 2 planning; ship is gated on it passing
+
+**Wave 6 carry-forwards (from Plan 02-06 finalization):**
+
+| Item | Priority | Resolution |
+|------|----------|------------|
+| D-21c non-fitness control UNCOVERED | High | No non-fitness video in eval set; NO_WORKOUT path untested; must add before EXTRACT_MODE=real production traffic — Phase 3 |
+| 9-video eval deferred | Medium | D-21b slot coverage 3/9 (all Shorts); long-form fitness eval needed in Phase 3 |
+| Shorts-only eval not representative | Medium | Product targets long-form workout videos (15-60 min); Shorts caption density/complexity differs |
+| Vercel Sensitive flag decision | Medium | Plan 02-07 must decide: mark KV_*/TOKEN vars non-Sensitive (easier env pull) OR maintain .env.local manually (more secure) |
+| smoke.json uses Short (unreliable captions) | Medium | Daily cron smoke may always return NO_WORKOUT; replace with long-form fitness video (CC enabled) before relying on cron for quality signals |
 
 **Deferred credentials — carry forward to Plan 02-07 owner-action checklist (from Plan 02-05):**
 
@@ -123,6 +138,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-18T15:57:51.730Z
-Stopped at: Phase 2 context gathered
+Last session: 2026-05-18T19:00:00.000Z
+Stopped at: Plan 02-06 complete — ready for Plan 02-07 (ship gate)
 Resume file: None
