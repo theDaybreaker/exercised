@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 2 context gathered
-last_updated: "2026-05-18T03:53:45.425Z"
+stopped_at: Plan 02-05 complete — ready for Plan 02-06 (eval set)
+last_updated: "2026-05-18T04:30:00.000Z"
 last_activity: 2026-05-18
 progress:
   total_phases: 3
@@ -61,7 +61,7 @@ Progress: [████████░░] 83%
 | Phase 02 P02 | 25 | 2 tasks | 11 files |
 | Phase 02 P03 | 4 | 3 tasks | 6 files |
 | Phase 02 P04 | 68 | 3 tasks | 10 files |
-| Phase 02 P05 | 7 | 2 tasks | 11 files |
+| Phase 02 P05 | 8 | 3 tasks (2 code + 1 human-verify) | 6 files created, 5 modified |
 
 ## Accumulated Context
 
@@ -97,6 +97,17 @@ Recent decisions affecting current work:
 
 - **Phase 2 prep:** yt-dlp host decision (Supadata vs. Railway/Fly sidecar) deferred to Phase 3 planning — informed by Phase 2 traffic and quality signals
 - **Phase 2 prep:** Eval set (5–10 hand-labeled fitness videos + 1 non-fitness control) must be built during Phase 2 planning; ship is gated on it passing
+
+**Deferred credentials — carry forward to Plan 02-07 owner-action checklist (from Plan 02-05):**
+
+| Env Var | Purpose | Status |
+|---------|---------|--------|
+| `RESEND_API_KEY` | Smoke failure email alerts (D-27c) | Pending — resend.com/api-keys |
+| `GITHUB_TOKEN` | Auto-open GitHub Issue on smoke failure (D-27d) | Pending — GitHub PAT with repo scope |
+| `GITHUB_REPO` | Target repo for auto-issues | Pending — set to `username/exercised` |
+| `CRON_SECRET` | Vercel Cron auth on /api/cron/smoke | Pending — `openssl rand -hex 32`, set in Vercel env vars |
+
+ALERT_EMAIL is resolved for development (set in .env.local from Vercel Preview). Production confirmation required in Plan 02-07 before EXTRACT_MODE=real flip.
 
 ## Deferred Items
 
