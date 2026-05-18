@@ -49,9 +49,9 @@ Plans:
   3. Repeat extractions of the same `videoId` return from the Upstash cache in under 1 second with no AI cost; abusive request patterns from a single IP are blocked by the `@upstash/ratelimit` sliding window with a friendly rate-limit UX (not a 429 dump); the global daily spend cap shows a "We're popular today — try again tomorrow" state when crossed
   4. Every extracted exercise carries a `sourceQuote` validated to appear in the transcript before being returned; low-confidence extractions surface a banner on the output ("results may be incomplete"); OpenAI dashboard budget cap and Vercel Spend Management cap are configured and visible in their respective dashboards
   5. A public DMCA / ToS / AI-disclaimer page is reachable from the footer, and a daily smoke test extracts a known-good YouTube video and alerts on failure (caption-API drift, LLM regression)
-**Plans:** 7 plans
+**Plans:** 1/7 plans executed
 Plans:
-- [ ] 02-01-PLAN.md — Schema migration: add video_url: z.string().url().nullable() to WorkoutSchema + audit .optional() fields + backfill 5 fixtures + update ActionBar Watch-on-YouTube link (D-25)
+- [x] 02-01-PLAN.md — Schema migration: add video_url: z.string().url().nullable() to WorkoutSchema + audit .optional() fields + backfill 5 fixtures + update ActionBar Watch-on-YouTube link (D-25)
 - [ ] 02-02-PLAN.md — Install 8 packages + Redis infrastructure: lib/redis/client.ts singleton + lib/ratelimit/index.ts (two-limiter pattern) + lib/spend/cap.ts (INCR/EXPIRE) + lib/cache/videoCache.ts (stampede lock)
 - [ ] 02-03-PLAN.md — Extraction pipeline building blocks: lib/youtube/captions.ts (primary+fallback) + lib/ai/extract.ts (generateText+Output.object) + lib/guards/sourceQuote.ts (hallucination guard)
 - [ ] 02-04-PLAN.md — Wire route.ts: all cost defenses in sequence + RealExtractionService stub replacement + BUDGET_EXHAUSTED SSE error code
@@ -78,5 +78,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Mock-Deployable Premium UI Demo | 5/5 | Complete | 2026-05-17 |
-| 2. Real Captions Pipeline + Cost Protections | 0/7 | Not started | - |
+| 2. Real Captions Pipeline + Cost Protections | 1/7 | In Progress|  |
 | 3. Audio Fallback for Uncaptioned Videos | 0/TBD | Not started | - |
