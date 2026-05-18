@@ -37,6 +37,7 @@ export const WorkoutSchema = z.object({
   estimated_duration_mins: z.number().int().positive(),
   difficulty: z.enum(["beginner", "intermediate", "advanced"]), // SCHM-04
   extraction_confidence: z.enum(["high", "medium", "low"]), // SCHM-02
+  video_url: z.string().url().nullable(), // D-25a — required-nullable (no .optional() — Pitfall 2)
   routine: z.array(RoutineItemSchema).min(1),
 });
 
