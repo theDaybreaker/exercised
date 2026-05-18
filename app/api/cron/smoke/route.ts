@@ -114,13 +114,20 @@ export async function GET(request: NextRequest): Promise<Response> {
   console.log("[smoke-cron] Starting daily smoke test");
 
   // Load smoke fixture
-  let smokeConfig: { videoId: string; expectedExerciseCount: number };
+  // Supports both legacy shape { expectedExerciseCount } and new shape { expectedExerciseCountMin, expectedExerciseCountMax }
+  let smokeConfig: {
+    videoId: string;
+    videoUrl?: string;
+    expectedExerciseCount?: number;
+    expectedExerciseCountMin?: number;
+    expectedExerciseCountMax?: number;
+  };
   try {
     // Dynamic import to avoid bundling issues with the file path
     const { default: config } = await import("../../../../tests/eval/smoke.json", {
       assert: { type: "json" },
     });
-    smokeConfig = config as { videoId: string; expectedExerciseCount: number };
+    smokeConfig = config as typeof smokeConfig;
   } catch (err) {
     const errorMsg = `Failed to load smoke.json: ${err}`;
     console.error(`[smoke-cron] ${errorMsg}`);
@@ -133,7 +140,8 @@ export async function GET(request: NextRequest): Promise<Response> {
     return new Response("Smoke test setup failed — see logs", { status: 200 });
   }
 
-  const smokeUrl = `https://www.youtube.com/watch?v=${smokeConfig.videoId}`;
+  // Use videoUrl from fixture if available (Shorts use different URL format); fallback to watch URL
+  const smokeUrl = smokeConfig.videoUrl ?? `https://www.youtube.com/watch?v=${smokeConfig.videoId}`;
   const baseUrl = getBaseUrl();
 
   // Run extraction
@@ -237,32 +245,44 @@ export async function GET(request: NextRequest): Promise<Response> {
     return new Response("Smoke test failed — schema validation error", { status: 200 });
   }
 
-  // Check exercise count ±1
+  // Check exercise count against expected range
+  // Supports legacy single-value shape (expectedExerciseCount ±1) and new range shape
   const exerciseCount = parsed.data.routine.length;
-  const expectedCount = smokeConfig.expectedExerciseCount;
-  const countDelta = Math.abs(exerciseCount - expectedCount);
 
-  if (countDelta > 1) {
+  // Derive min/max from whichever shape is present
+  const expectedMin =
+    smokeConfig.expectedExerciseCountMin ??
+    (smokeConfig.expectedExerciseCount !== undefined
+      ? smokeConfig.expectedExerciseCount - 1
+      : 1);
+  const expectedMax =
+    smokeConfig.expectedExerciseCountMax ??
+    (smokeConfig.expectedExerciseCount !== undefined
+      ? smokeConfig.expectedExerciseCount + 1
+      : 20);
+
+  if (exerciseCount < expectedMin || exerciseCount > expectedMax) {
     const countDetails = [
       `videoId: ${smokeConfig.videoId}`,
-      `expected exercises: ${expectedCount} (±1)`,
+      `expected exercises: ${expectedMin}–${expectedMax}`,
       `actual exercises: ${exerciseCount}`,
-      `delta: ${countDelta}`,
       `timestamp: ${new Date().toISOString()}`,
     ].join("\n");
 
-    console.error(`[smoke-cron] FAILED — exercise count mismatch (expected ${expectedCount}±1, got ${exerciseCount})`);
+    console.error(
+      `[smoke-cron] FAILED — exercise count mismatch (expected ${expectedMin}–${expectedMax}, got ${exerciseCount})`
+    );
     await sendSmokeAlert(countDetails);
     await openGitHubIssue(
       `[Smoke] Exercise count mismatch — ${new Date().toISOString().slice(0, 10)}`,
-      `The daily smoke test produced an unexpected exercise count.\n\n**Video:** https://youtube.com/watch?v=${smokeConfig.videoId}\n\n**Expected:** ${expectedCount} ±1\n**Actual:** ${exerciseCount}\n\n**Timestamp:** ${new Date().toISOString()}`
+      `The daily smoke test produced an unexpected exercise count.\n\n**Video:** https://youtube.com/watch?v=${smokeConfig.videoId}\n\n**Expected:** ${expectedMin}–${expectedMax}\n**Actual:** ${exerciseCount}\n\n**Timestamp:** ${new Date().toISOString()}`
     );
     return new Response("Smoke test failed — exercise count mismatch", { status: 200 });
   }
 
   // All checks passed
   console.log(
-    `[smoke-cron] PASSED — videoId=${smokeConfig.videoId}, exercises=${exerciseCount}/${expectedCount}, lowConfidence=${extractionResult?.lowConfidence ?? false}`
+    `[smoke-cron] PASSED — videoId=${smokeConfig.videoId}, exercises=${exerciseCount} (expected ${expectedMin}–${expectedMax}), lowConfidence=${extractionResult?.lowConfidence ?? false}`
   );
   return new Response("OK", { status: 200 });
 }

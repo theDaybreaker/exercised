@@ -1,5 +1,7 @@
 {
-  "videoId": "dQw4w9WgXcQ",
-  "expectedExerciseCount": 5,
-  "_note": "Placeholder — Plan 02-06 replaces with a real known-good fitness video fixture."
+  "videoId": "crcHvDs-YoU",
+  "videoUrl": "https://www.youtube.com/shorts/crcHvDs-YoU",
+  "expectedExerciseCountMin": 1,
+  "expectedExerciseCountMax": 10,
+  "_note": "Scope reduction (Plan 02-06): Eval set uses 3 YouTube Shorts — captions are unreliable on Shorts. This smoke target may return NO_WORKOUT if captions are unavailable. Replace with a long-form fitness video (e.g., a Jeff Nippard or AthleanX video with CC enabled) before the daily cron is meaningful. Phase 3 (audio fallback via Whisper) is required for reliable Shorts extraction."
 }

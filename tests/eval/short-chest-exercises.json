@@ -1,0 +1,10 @@
+{
+  "slug": "short-chest-exercises",
+  "videoId": "crcHvDs-YoU",
+  "videoUrl": "https://www.youtube.com/shorts/crcHvDs-YoU",
+  "expectedResult": "either",
+  "expectedExerciseCountMin": 1,
+  "expectedExerciseCountMax": 10,
+  "minRecallPct": 80,
+  "notes": "YouTube Short — fitness Short, likely chest/upper-body exercises. Shorts often lack captions; either valid extraction or graceful NO_WORKOUT both pass. Phase 3 (audio fallback) required for reliable extraction."
+}

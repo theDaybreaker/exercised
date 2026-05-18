@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:ui": "vitest --ui",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "eval": "EXTRACT_MODE=real vitest run tests/eval/run.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.75",

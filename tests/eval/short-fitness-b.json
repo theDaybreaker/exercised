@@ -1,0 +1,10 @@
+{
+  "slug": "short-fitness-b",
+  "videoId": "tUeSiRch1y4",
+  "videoUrl": "https://www.youtube.com/shorts/tUeSiRch1y4",
+  "expectedResult": "either",
+  "expectedExerciseCountMin": 1,
+  "expectedExerciseCountMax": 10,
+  "minRecallPct": 80,
+  "notes": "YouTube Short — fitness Short. Shorts often lack captions; either valid extraction or graceful NO_WORKOUT both pass. Phase 3 (audio fallback) required for reliable extraction."
+}
