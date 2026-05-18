@@ -4,7 +4,8 @@ import path from "path";
 export default defineConfig({
   test: {
     environment: "node",
-    exclude: ["**/node_modules/**", "**/.next/**", "**/*.eval.test.ts"],
+    include: ["tests/eval/*.eval.test.ts"],
+    testTimeout: 60000,
   },
   resolve: {
     alias: {

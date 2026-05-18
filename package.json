@@ -11,7 +11,7 @@
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
-    "eval": "EXTRACT_MODE=real vitest run tests/eval/run.ts"
+    "eval": "EXTRACT_MODE=real vitest run --config vitest.eval.config.ts tests/eval/run.eval.test.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.75",

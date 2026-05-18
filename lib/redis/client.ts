@@ -13,24 +13,15 @@ import { Redis } from "@upstash/redis";
  * the explicit fallback below covers both: Vercel KV_* aliases and Upstash UPSTASH_* names.
  */
 export const redis: Redis = (() => {
-  // Prefer fromEnv() which reads both KV_REST_API_URL and UPSTASH_REDIS_REST_URL natively.
-  // In environments where neither set is available (local dev without .env.local),
-  // the Redis calls will fail at runtime — not at module load — which is the correct behavior.
-  try {
-    return Redis.fromEnv();
-  } catch {
-    // Explicit fallback: try both Vercel KV_* naming and Upstash UPSTASH_* naming.
-    // This handles edge cases where Redis.fromEnv() is picky about exact variable names.
-    const url =
-      process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
-    const token =
-      process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
-    if (!url || !token) {
-      throw new Error(
-        "Redis configuration missing. Set UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN " +
-          "or KV_REST_API_URL + KV_REST_API_TOKEN in your environment.",
-      );
-    }
-    return new Redis({ url, token });
+  const url =
+    process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
+  if (!url || !token) {
+    throw new Error(
+      "Redis configuration missing. Set UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN " +
+        "or KV_REST_API_URL + KV_REST_API_TOKEN in your environment.",
+    );
   }
+  return new Redis({ url, token });
 })();
