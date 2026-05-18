@@ -7,8 +7,11 @@
  * Spring: { damping: 22, stiffness: 240 } per UI-SPEC §6.2 settled-value.
  * D-05: useReducedMotion() — when true, instant cross-fade, no transform/stagger.
  * D-16: shouldAnimateIn=false (share-link hydration) → instant render, no cascade.
+ * D-23: renders ConfidenceBanner above WorkoutHeader when lowConfidence=true.
+ * D-26d: renders "⚡ Cached" badge in WorkoutHeader area when cached=true.
  */
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { Workout, StripField } from "@/lib/schema/workout";
 import { WorkoutHeader } from "@/components/workout/WorkoutHeader";
@@ -16,12 +19,17 @@ import { ExerciseCard } from "@/components/workout/ExerciseCard";
 import { SupersetCard } from "@/components/workout/SupersetCard";
 import { ActionBar } from "@/components/workout/ActionBar";
 import { ShareStripNotice } from "@/components/workout/ShareStripNotice";
+import { ConfidenceBanner } from "@/components/extract/ConfidenceBanner";
 
 interface WorkoutViewProps {
   workout: Workout;
   shouldAnimateIn: boolean;
   /** D-17: when opening a stripped share link, pass the stripped fields to render the inline notice */
   shareLinkOmittedFields?: StripField[];
+  /** D-23: show amber low-confidence banner above WorkoutHeader */
+  lowConfidence?: boolean;
+  /** D-26d: show "⚡ Cached" badge — result was served from cache */
+  cached?: boolean;
 }
 
 // Motion variants — UI-SPEC §6.2
@@ -69,8 +77,17 @@ const reducedMotionCardVariants = {
   },
 };
 
-export function WorkoutView({ workout, shouldAnimateIn, shareLinkOmittedFields }: WorkoutViewProps) {
+export function WorkoutView({
+  workout,
+  shouldAnimateIn,
+  shareLinkOmittedFields,
+  lowConfidence = false,
+  cached = false,
+}: WorkoutViewProps) {
   const prefersReducedMotion = useReducedMotion();
+
+  // D-23f: banner dismissed state — local only, not persisted
+  const [bannerDismissed, setBannerDismissed] = useState(false);
 
   // When no animation: Motion treats initial/animate=false as "no animation"
   const shouldAnimate = shouldAnimateIn && !prefersReducedMotion;
@@ -98,9 +115,16 @@ export function WorkoutView({ workout, shouldAnimateIn, shareLinkOmittedFields }
         <ShareStripNotice strippedFields={shareLinkOmittedFields} />
       )}
 
+      {/* D-23: Low-confidence banner — amber, above WorkoutHeader, dismissible */}
+      {lowConfidence && !bannerDismissed && (
+        <motion.div variants={effectiveHeaderVariants}>
+          <ConfidenceBanner onDismiss={() => setBannerDismissed(true)} />
+        </motion.div>
+      )}
+
       {/* Workout header — animates first */}
       <motion.div variants={effectiveHeaderVariants}>
-        <WorkoutHeader workout={workout} />
+        <WorkoutHeader workout={workout} cached={cached} />
       </motion.div>
 
       {/* ActionBar — above exercise list per UI-SPEC §9.4 */}

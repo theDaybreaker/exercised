@@ -216,6 +216,8 @@ export function ExtractFlow() {
         workout={state.workout}
         shouldAnimateIn={!state.fromShareLink}
         shareLinkOmittedFields={state.fromShareLink ? state.stripped : undefined}
+        lowConfidence={state.lowConfidence}
+        cached={state.cached}
       />
     );
   }
