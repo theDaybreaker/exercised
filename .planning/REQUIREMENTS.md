@@ -72,9 +72,9 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 
 ### Cost Protection & Abuse
 
-- [ ] **COST-01**: `videoId` cache (Upstash Redis, 30-day TTL) returns prior extractions for repeat URLs without an AI call
-- [ ] **COST-02**: Per-IP rate limit via `@upstash/ratelimit` (sliding window, ~3–5 requests/min, ~20/day) on `/api/extract`
-- [ ] **COST-03**: Global daily spend cap (tracked in Redis) halts new extractions when crossed, with a friendly "We're popular today — try again tomorrow" state
+- [x] **COST-01**: `videoId` cache (Upstash Redis, 30-day TTL) returns prior extractions for repeat URLs without an AI call
+- [x] **COST-02**: Per-IP rate limit via `@upstash/ratelimit` (sliding window, ~3–5 requests/min, ~20/day) on `/api/extract`
+- [x] **COST-03**: Global daily spend cap (tracked in Redis) halts new extractions when crossed, with a friendly "We're popular today — try again tomorrow" state
 - [ ] **COST-04**: OpenAI dashboard budget cap and Vercel Spend Management cap are configured before the first real key is deployed
 - [ ] **COST-05**: Pre-Whisper video duration cap (e.g., 30 min) prevents single-request cost blow-up on the audio path
 
@@ -180,9 +180,9 @@ Updated during roadmap creation by the roadmapper.
 | EXTR-02 | Phase 2 | Complete |
 | EXTR-03 | Phase 2 | Pending |
 | EXTR-04 | Phase 2 | Pending |
-| COST-01 | Phase 2 | Pending |
-| COST-02 | Phase 2 | Pending |
-| COST-03 | Phase 2 | Pending |
+| COST-01 | Phase 2 | Complete |
+| COST-02 | Phase 2 | Complete |
+| COST-03 | Phase 2 | Complete |
 | COST-04 | Phase 2 | Pending |
 | ERRS-04 | Phase 2 | Pending |
 | OPS-04 | Phase 2 | Pending |
