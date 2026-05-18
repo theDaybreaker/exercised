@@ -116,4 +116,122 @@ describe("WorkoutSchema", () => {
       expect(parsed.schema_version).toBe("1");
     }
   });
+
+  // ── D-25a video_url field (Phase 2 — required-nullable, not optional) ────
+  it("video_url: null is accepted (required-nullable)", () => {
+    // Pull a fixture that will have video_url after backfill; for now test directly
+    const base = {
+      schema_version: "1",
+      workout_title: "Test Workout",
+      creator_username: "testuser",
+      target_muscles: [],
+      estimated_duration_mins: 30,
+      difficulty: "beginner",
+      extraction_confidence: "high",
+      video_url: null,
+      routine: [
+        {
+          type: "standard_set",
+          exercise_name: "Push-Up",
+          sets: 3,
+          reps: "10",
+          rest_seconds: 60,
+          form_cues: [],
+          startTimestamp: null,
+          sourceQuote: null,
+          equipment: [],
+        },
+      ],
+    } as const;
+    expect(() => WorkoutSchema.parse(base)).not.toThrow();
+    const parsed = WorkoutSchema.parse(base);
+    expect(parsed.video_url).toBeNull();
+  });
+
+  it("video_url: valid URL is accepted", () => {
+    const base = {
+      schema_version: "1",
+      workout_title: "Test Workout",
+      creator_username: "testuser",
+      target_muscles: [],
+      estimated_duration_mins: 30,
+      difficulty: "beginner",
+      extraction_confidence: "high",
+      video_url: "https://youtube.com/watch?v=abc123",
+      routine: [
+        {
+          type: "standard_set",
+          exercise_name: "Push-Up",
+          sets: 3,
+          reps: "10",
+          rest_seconds: 60,
+          form_cues: [],
+          startTimestamp: null,
+          sourceQuote: null,
+          equipment: [],
+        },
+      ],
+    } as const;
+    expect(() => WorkoutSchema.parse(base)).not.toThrow();
+    const parsed = WorkoutSchema.parse(base);
+    expect(parsed.video_url).toBe("https://youtube.com/watch?v=abc123");
+  });
+
+  it("video_url: invalid URL string is rejected", () => {
+    const base = {
+      schema_version: "1",
+      workout_title: "Test Workout",
+      creator_username: "testuser",
+      target_muscles: [],
+      estimated_duration_mins: 30,
+      difficulty: "beginner",
+      extraction_confidence: "high",
+      video_url: "not-a-url",
+      routine: [
+        {
+          type: "standard_set",
+          exercise_name: "Push-Up",
+          sets: 3,
+          reps: "10",
+          rest_seconds: 60,
+          form_cues: [],
+          startTimestamp: null,
+          sourceQuote: null,
+          equipment: [],
+        },
+      ],
+    } as const;
+    expect(() => WorkoutSchema.parse(base)).toThrow();
+  });
+
+  it("no .optional() or .nullish() in WorkoutSchema (Pitfall 2 — Structured Outputs)", () => {
+    // This test ensures the schema tree stays free of .optional()/.nullish()
+    // which break OpenAI Structured Outputs with NoObjectGeneratedError.
+    // The actual grep check is done in the verification step.
+    // Here we verify video_url is required (presence enforced by Zod — omitting it throws).
+    const baseWithoutVideoUrl = {
+      schema_version: "1",
+      workout_title: "Test Workout",
+      creator_username: "testuser",
+      target_muscles: [],
+      estimated_duration_mins: 30,
+      difficulty: "beginner",
+      extraction_confidence: "high",
+      // video_url intentionally omitted — should throw (required-nullable)
+      routine: [
+        {
+          type: "standard_set",
+          exercise_name: "Push-Up",
+          sets: 3,
+          reps: "10",
+          rest_seconds: 60,
+          form_cues: [],
+          startTimestamp: null,
+          sourceQuote: null,
+          equipment: [],
+        },
+      ],
+    };
+    expect(() => WorkoutSchema.parse(baseWithoutVideoUrl)).toThrow();
+  });
 });
