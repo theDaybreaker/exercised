@@ -64,9 +64,9 @@ Requirements for initial release. Each maps to roadmap phases. All `v1` is anony
 
 ### Real Extraction Pipeline (AI)
 
-- [ ] **EXTR-01**: `/api/extract` fetches YouTube captions via `youtube-caption-extractor` with `youtube-transcript` as fallback before considering audio transcription (captions-first path)
+- [x] **EXTR-01**: `/api/extract` fetches YouTube captions via `youtube-caption-extractor` with `youtube-transcript` as fallback before considering audio transcription (captions-first path)
 - [x] **EXTR-02**: Extracted text is structured into the `Workout` schema via Vercel AI SDK `generateText({ output: Output.object(WorkoutSchema) })` against GPT-4o with OpenAI Structured Outputs (AI SDK 6 canonical API)
-- [ ] **EXTR-03**: Hallucination guard: every exercise carries a `sourceQuote` validated to appear in the transcript before being returned to the client
+- [x] **EXTR-03**: Hallucination guard: every exercise carries a `sourceQuote` validated to appear in the transcript before being returned to the client
 - [ ] **EXTR-04**: An eval set of 5–10 hand-labeled fitness videos (plus 1 non-fitness control) is checked in and used to gate real-pipeline ship; failure to extract the control as "no workout" blocks release
 - [ ] **EXTR-05**: For videos without captions, audio is fetched via an off-Vercel transcript source (Supadata or Railway/Fly sidecar) and transcribed with `gpt-4o-mini-transcribe` before LLM structuring
 
@@ -176,9 +176,9 @@ Updated during roadmap creation by the roadmapper.
 | OPS-01 | Phase 1 | Complete |
 | OPS-02 | Phase 1 | Complete |
 | OPS-03 | Phase 1 | Complete |
-| EXTR-01 | Phase 2 | Pending |
+| EXTR-01 | Phase 2 | Complete |
 | EXTR-02 | Phase 2 | Complete |
-| EXTR-03 | Phase 2 | Pending |
+| EXTR-03 | Phase 2 | Complete |
 | EXTR-04 | Phase 2 | Pending |
 | COST-01 | Phase 2 | Complete |
 | COST-02 | Phase 2 | Complete |
